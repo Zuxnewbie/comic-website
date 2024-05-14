@@ -1,0 +1,158 @@
+.breadcrumb {
+    list-style: none;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    li {
+      display: inline;
+      line-height: 1.3rem;
+      a {
+        font-size: 13px;
+        color: #424242;
+        text-decoration: none;
+        cursor: pointer;
+        span {
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+    li + li::before {
+      padding: 0 5px;
+      color: black;
+      content: "/\00a0";
+    }
+  }
+
+  .comic-content {
+    padding: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+
+    .book-avatar {
+      height: 250px;
+      overflow: hidden;
+      // width: 190px;
+      // width: 20%;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 0 8px 0 #757575;
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .book-other {
+      // width: calc(100% - 220px);
+      width: 80%;
+      text-align: left;
+      h1 {
+        padding-bottom: 10px;
+      }
+
+      .txt {
+        .list-info {
+          list-style: outside none none;
+          overflow: hidden;
+          padding: 0;
+          margin: 0;
+
+          .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            gap: 3rem;
+            margin-bottom: 10px;
+
+            .col {
+              width: 20%;
+            }
+          }
+        }
+      }
+
+      .list-genres {
+        list-style: outside none none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        li {
+          a {
+            cursor: pointer;
+            text-decoration: none;
+
+            display: inline-block;
+            border: 1px solid #56ccf2;
+            color: #56ccf2;
+            padding: 4px 6px;
+            border-radius: 3px;
+            margin-right: 10px;
+            border-color: #f18121;
+            color: #f18121;
+            margin-top: 5px;
+
+            &:hover {
+              background: #f18121;
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .story-detail-menu {
+        list-style: outside none none;
+        display: flex;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        li.li01 a {
+          background-color: #8bc34a;
+        }
+
+        li.li02 a {
+          background-color: #ff3860;
+        }
+        li.li03 a {
+          background-color: #bd10e0;
+        }
+        li.li04 a {
+          background-color: #209cee;
+        }
+
+        li {
+          a {
+            cursor: pointer;
+            text-align: center;
+            font-size: 15px;
+            color: #fff;
+            min-width: 125px;
+            font-weight: 400;
+            padding: 10px 14px;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    margin-bottom: 2rem;
+    h3 {
+      color: #f18121;
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 3rem;
+      position: relative;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .description-content {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 25px;
+    }
+  }

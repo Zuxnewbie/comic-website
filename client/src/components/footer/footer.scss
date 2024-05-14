@@ -1,0 +1,101 @@
+.footer-container {
+    background-color: #fff;
+    border-top: 5px solid #f18121;
+    padding: 20px 0;
+    // max-width: 1200px;
+    // margin: 0 auto;
+    height: 100%;
+    
+    .container-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    
+      .left {
+        .para {
+          font-size: 23px;
+          letter-spacing: 1px;
+          .url {
+            cursor: pointer;
+            text-decoration: none !important;
+            color: inherit;
+          }
+        }
+  
+        span {
+          font-size: 14px;
+          color: #333;
+          line-height: 28px;
+          iframe{
+            border: none;
+            overflow: hidden;
+          }
+        }
+      }
+  
+      .right {
+        width: 50%;
+        ul {
+          list-style: outside none none;
+          margin-bottom: 3px;
+          display: flex;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          li {
+            line-height: 30px;
+            padding: 0 5px;
+            background-color: #e2e2e2;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-radius: 3px;
+            font-size: 12px;
+  
+            a{
+              cursor: pointer;
+              text-decoration: none !important;
+              color: inherit;
+              &:hover{
+                color: #f18121;
+              }
+            }
+          }
+        }
+  
+        p{
+          font-size: 13px;
+          line-height: 21px;
+          a{
+            cursor: pointer;
+            text-decoration: none !important;
+            color: inherit;
+  
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 740px) {
+    .footer-container{
+      .container-content{
+        flex-direction: column;
+        justify-content: flex-start;
+        .left{
+          width: 90%;
+        }
+        .right{
+          width: 90%;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 740px) and (max-width: 1024px) {
+  }
+  
+  @media (min-width: 1024px) {
+  }
+  

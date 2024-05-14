@@ -1,0 +1,127 @@
+.comment-container {
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    .story-detail-title {
+      color: #f18121;
+      font-size: 20px;
+      i {
+        margin-right: 10px;
+      }
+
+      .comment-count {
+        font-size: 1.2rem;
+      }
+    }
+
+    .notify-fanpage {
+      font-size: 1rem;
+      padding-top: 1rem;
+
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    }
+
+    .comment-layout {
+      overflow: hidden;
+      margin-top: 20px;
+
+      .form-comment {
+        .comment-placeholder {
+          font-size: 14px;
+          color: #999;
+          height: 70px;
+          padding: 5px 10px;
+          background-color: #fff;
+          cursor: text;
+          border: 1px solid #bbb;
+          border-radius: 0.7rem;
+          box-shadow: 0 1px 1px #fff;
+        }
+
+        .mess-input {
+        }
+
+        .hidden {
+          display: none;
+        }
+      }
+
+      .list-comment {
+        padding: 10px;
+          .outside-comment {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            justify-content: flex-start;
+            .avatar-comment {
+                width: 4rem;
+                position: relative;
+                padding: 10px 0px;
+                img{
+                    border: 1px solid #eee;
+                    border-radius: 46px;
+                    background-color: #fff;
+                    height: auto;
+                    max-width: 100%;
+                }
+            }
+            .item-comment {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+              .outline-content-comment {
+                background: #f7f7f7;
+                padding: 10px;
+                border-radius: 10px;
+                .username {
+                    font-weight: 600;
+                    font-size: 1.3rem;
+                }
+
+                .content-comment {
+                    color: #000;
+                    overflow: hidden;
+                    display: block;
+                    padding: 7px 0 0;
+                    word-wrap: break-word;
+                    border-top: 1px solid #f18121;
+                    margin-top: 7px;
+                    font-weight: 200;
+                    font-size: 1rem;
+                }
+              }
+
+              .action-comment {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+
+                .like-comment{
+                    color: #3f94d5;
+                    font-size: 13px;
+                    cursor: pointer;
+
+                }
+
+                .reply-comment{
+                    color: #3f94d5;
+                    font-size: 13px;
+                    cursor: pointer;
+                }
+
+                .time{
+                    font-size: 12px;
+                    color: #999;
+                }
+              }
+            }
+          }
+      }
+    }
+  }

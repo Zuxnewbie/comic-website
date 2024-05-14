@@ -1,0 +1,69 @@
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize('comic', 'root', null, {
+     host: 'localhost',
+     dialect: 'mysql',
+     logging: false
+});
+
+const conn = async () => {
+     try {
+          await sequelize.authenticate();
+          console.log("connect succccccc fucking");
+     } catch (error) {
+          console.log("unable" , error);
+     }
+}
+
+export default conn
+
+
+
+
+import express from 'express'
+import * as authController from '../controllers/auth'
+
+const router = express.Router()
+router.get("/login", (req, res) => {
+  res.status(200).json("CONNECT SUCCESSFULL BROOOOOO")
+})
+
+export default router;
+
+
+
+
+import express from 'express'
+import * as authController from '../controllers/auth.js'
+
+const router = express.Router()
+
+router.get("/register", authController.register)
+
+export default router;
+
+
+
+
+
+// const register = async (req, res) => {
+// //   res.status(200).json("CONNECT SUCCESSFULL BROOOOOO");
+//   const { name, email, password } = req.body;
+
+//   try {
+//     if (!name, !email, !password) {
+//         return res.status(400).json({
+//             err: 1,
+//             msg: "Missing inputs"
+//         })
+//     }
+//     // const response = await authService.res
+
+//   } catch (error) {
+//     return res.status(500).json({
+//         err: -1,
+//         msg: "Fail at auth controller: ", 
+//         error: error.message 
+//     });
+//   }
+// };

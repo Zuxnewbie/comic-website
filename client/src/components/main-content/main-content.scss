@@ -1,0 +1,111 @@
+.homepage-list {
+    .homepage-list-item {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      list-style: outside none none;
+
+      li {
+        width: 15%;
+        .book_avatar {
+          height: 220px;
+          width: 100%;
+          overflow: hidden;
+          border-radius: 6px;
+          position: relative;
+          a {
+            cursor: pointer;
+            text-decoration: none !important;
+            color: inherit;
+
+            img {
+              width: 100%;
+              min-width: 100%;
+              height: auto;
+              vertical-align: middle;
+              display: inline-block;
+              border: 1px solid #ccc;
+            }
+
+            .center {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          .top-notice {
+            position: absolute;
+            top: 9px;
+            left: 8px;
+            font-size: 0;
+
+            span {
+              font-size: 13px;
+              font-weight: 500;
+              color: #fff;
+              padding: 2px 6px 3px;
+            }
+
+            .time-ago {
+              border-radius: 5px;
+              background-color: #56ccf2;
+              margin-right: 5px;
+            }
+
+            .type-label {
+              border-radius: 5px;
+              background-color: #000;
+              -webkit-animation: pulse 1s steps(5, start) infinite;
+              animation: pulse 1s steps(5, start) infinite;
+            }
+
+            .hot {
+              background-color: #ff2853;
+            }
+          }
+        }
+
+        .book_info {
+          .book_name {
+            text-align: center;
+            line-height: 35px;
+            font-weight: 600;
+            font-size: 13px;
+            // margin-top: 7px;
+            height: 35px;
+            max-width: 100%;
+            overflow: hidden;
+            text-transform: capitalize;
+            .name {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              a {
+                cursor: pointer;
+                text-decoration: none !important;
+                color: inherit;
+              }
+            }
+          }
+
+          .last_chapter {
+            font-size: 12px;
+            text-align: center;
+            a {
+              font-size: 12px;
+              font-weight: 300;
+              text-transform: capitalize;
+              cursor: pointer;
+              text-decoration: none !important;
+              color: inherit;
+            }
+          }
+        }
+      }
+    }
+  }
