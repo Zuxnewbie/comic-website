@@ -4,12 +4,14 @@ import { TiLightbulb } from "react-icons/ti";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
+// import validate from "../../utils/validate";
 
 const HeaderComponent = () => {
   const [navMobile, setNavMobile] = useState(false);
   const [navChildGenre, setNavChildGenre] = useState(false);
   const [navChildTop, setNavChildTop] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [showRegisterPopup, setShowRegisterPopup] = useState(false);
 
   const handleShowNavMobile = () => {
     setNavMobile(!navMobile);
@@ -27,9 +29,18 @@ const HeaderComponent = () => {
     setShowLoginPopup(true);
   };
 
+  const handleRegisterClick = () => {
+    setShowRegisterPopup(true);
+  };
+
   const handleClosePopup = () => {
     setShowLoginPopup(false);
+    setShowRegisterPopup(false);
   };
+
+  // const handleValidate = () => {
+  //   validate.validateEmail(email);
+  // }
 
   return (
     <>
@@ -86,7 +97,7 @@ const HeaderComponent = () => {
             <div className="right">
               <div className="button-user">
                 <span>
-                  <button onClick={handleLoginClick}>Đăng ký</button>
+                  <button onClick={handleRegisterClick}>Đăng ký</button>
                 </span>
                 <span>
                   <button onClick={handleLoginClick}>Đăng nhập</button>
@@ -103,7 +114,10 @@ const HeaderComponent = () => {
                   Trang Chủ
                 </a>
               </li>
-              <span className="middle_menu_fabars" onClick={handleShowNavMobile}>
+              <span
+                className="middle_menu_fabars"
+                onClick={handleShowNavMobile}
+              >
                 <FaBars />
               </span>
               <li className="middle_menu_item">
@@ -260,7 +274,16 @@ const HeaderComponent = () => {
           )}
         </div>
       </header>
-      {showLoginPopup && <PopupLoginComponent onClose={handleClosePopup} />}
+      <PopupLoginComponent
+        display={showLoginPopup ? "show" : ""}
+        onClose={handleClosePopup}
+        iniRegister={false}
+      />
+      <PopupLoginComponent
+        display={showRegisterPopup ? "show" : ""}
+        onClose={handleClosePopup}
+        iniRegister={true}
+      />
     </>
   );
 };

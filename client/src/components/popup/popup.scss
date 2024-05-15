@@ -1,7 +1,9 @@
 .popup.login {
-    display: block;
+    display: none;
     color: #000;
-    
+    &.show{
+      display: block;
+    }
     .popup_content {
       z-index: 99998;
       width: 430px;
@@ -124,3 +126,10 @@
     }
   }
   
+
+
+
+  small{
+    color: red;
+    font-size: 12px;
+  }
