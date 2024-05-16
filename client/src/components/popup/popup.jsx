@@ -4,7 +4,9 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import ToastComponent from "../toast/toast";
-import { apiRegister } from "../../services/auth";
+// import { apiRegister } from "../../services/auth";
+import * as actions from "../../store/actions"
+import { useDispatch } from "react-redux"
 import {
   validateName,
   validateEmail,
@@ -12,11 +14,14 @@ import {
 } from "../../utils/validate"; // Adjust the import path as needed
 import PropTypes from "prop-types";
 
+
+
 const PopupLoginComponent = ({
   onClose,
   display = "",
   iniRegister = false,
 }) => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -88,17 +93,22 @@ const PopupLoginComponent = ({
       }
       if (!nameError && !emailError && !passwordError) {
         try {
-          const response = await apiRegister({
-            name: name,
-            email: emailRegister,
-            password: passwordRegister,
-          });
+          // const response = await apiRegister({
+          //   name: name,
+          //   email: emailRegister,
+          //   password: passwordRegister,
+          // });
           // console.log({
           //   name: name,
           //   email: emailRegister,
           //   password: passwordRegister,
           // });
-          console.log(response);
+          dispatch(actions.register({
+            name: name,
+            email: emailRegister,
+            password: passwordRegister,
+          }))
+          // console.log(response);
 
           toast.success("API REGISTER SUCCESS");
           // Handle successful registration (e.g., close popup, show success message)
