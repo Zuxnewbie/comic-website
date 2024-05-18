@@ -2,11 +2,12 @@ import "./popup.scss";
 import { useState, useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "react-toastify";
 import ToastComponent from "../toast/toast";
+// import { toast } from "react-toastify";
 // import { apiRegister } from "../../services/auth";
-import * as actions from "../../store/actions"
-import { useDispatch } from "react-redux"
+// import { register } from "../../store/actions/index";
+import * as actions from "../../store/actions";
+import { useDispatch } from "react-redux";
 import {
   validateName,
   validateEmail,
@@ -14,14 +15,12 @@ import {
 } from "../../utils/validate"; // Adjust the import path as needed
 import PropTypes from "prop-types";
 
-
-
 const PopupLoginComponent = ({
   onClose,
   display = "",
   iniRegister = false,
 }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -79,49 +78,18 @@ const PopupLoginComponent = ({
     e.preventDefault();
     // console.log(toast.success("API REGISTER SUCCESS"));
 
-    if (isRegister) {
-      if (!validateName(name)) {
-        setNameError(
-          "Name must be 1-10 characters long and contain only letters"
-        );
-      }
-      if (!validateEmail(emailRegister)) {
-        setEmailError("Invalid email format");
-      }
-      if (!validatePassword(passwordRegister)) {
-        setPasswordError("Password must be at least 6 characters long");
-      }
-      if (!nameError && !emailError && !passwordError) {
-        try {
-          // const response = await apiRegister({
-          //   name: name,
-          //   email: emailRegister,
-          //   password: passwordRegister,
-          // });
-          // console.log({
-          //   name: name,
-          //   email: emailRegister,
-          //   password: passwordRegister,
-          // });
-          dispatch(actions.register({
+    isRegister
+      ? dispatch(
+           actions.register({
             name: name,
             email: emailRegister,
             password: passwordRegister,
-          }))
-          // console.log(response);
-
-          toast.success("API REGISTER SUCCESS");
-          // Handle successful registration (e.g., close popup, show success message)
-        } catch (error) {
-          toast.error("API REGISTER error");
-
-          console.error(error);
-          // Handle registration error (e.g., show error message)
-        }
-      }
-    } else {
-      // Handle login
-    }
+          })
+        )
+      : dispatch(actions.login({
+        email: email,
+        password: password,
+      }));
   };
 
   return (
@@ -195,7 +163,11 @@ const PopupLoginComponent = ({
                   <p>
                     <span
                       className="module_login"
-                      onClick={() => setIsRegister(false)}
+                      onClick={() => {setIsRegister(false)
+                         setName("") 
+                         setEmailRegister("")
+                        setPasswordRegister("")}}
+                      
                     >
                       Đăng nhập ngay
                     </span>
@@ -204,7 +176,7 @@ const PopupLoginComponent = ({
                   <p>
                     <span
                       className="module_login"
-                      onClick={() => setIsRegister(true)}
+                      onClick={() => {setIsRegister(true)}}
                     >
                       Tạo tài khoản mới
                     </span>
