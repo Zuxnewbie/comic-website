@@ -14,9 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Chapter.init({
+    chapter_id: DataTypes.STRING,
+    story_id: DataTypes.STRING,
     name: DataTypes.STRING,
-    content: DataTypes.TEXT,
-    story_id: DataTypes.STRING
+    content: DataTypes.TEXT('long'),
   }, {
     sequelize,
     modelName: 'Chapter',

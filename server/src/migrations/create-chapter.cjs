@@ -6,16 +6,20 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        autoIncrement: true
+      },
+      chapter_id: {
+        type: Sequelize.STRING,
+      },
+      story_id: {
+        type: Sequelize.STRING,
       },
       name: {
         type: Sequelize.STRING
       },
       content: {
-        type: Sequelize.TEXT
-      },
-      story_id: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('long')
       },
       createdAt: {
         allowNull: false,
