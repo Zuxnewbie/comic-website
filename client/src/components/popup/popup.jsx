@@ -2,24 +2,25 @@ import "./popup.scss";
 import { useState, useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import ToastComponent from "../toast/toast";
 // import { toast } from "react-toastify";
-// import { apiRegister } from "../../services/auth";
-// import { register } from "../../store/actions/index";
+// import {ToastComponent} from '../toast/toast'
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import * as actions from "../../store/actions";
-import { useDispatch } from "react-redux";
 import {
   validateName,
   validateEmail,
   validatePassword,
 } from "../../utils/validate"; // Adjust the import path as needed
-import PropTypes from "prop-types";
 
 const PopupLoginComponent = ({
   onClose,
   display = "",
   iniRegister = false,
 }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,9 +34,26 @@ const PopupLoginComponent = ({
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
+
   useEffect(() => {
     setIsRegister(iniRegister);
   }, [iniRegister]);
+
+  useEffect(() => {
+    isLoggedIn && navigate("/");
+  }, [isLoggedIn, navigate]);
+
+
+
+  useEffect(() => {
+    msg && Swal.fire({
+      title: "Oops !",
+      text: msg,
+      icon: "error",
+      
+    });
+  }, [msg, update]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -76,21 +94,26 @@ const PopupLoginComponent = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(toast.success("API REGISTER SUCCESS"));
+    // console.log("toast =>>>", toast.success("hello"));
 
     isRegister
       ? dispatch(
-           actions.register({
+          actions.register({
             name: name,
             email: emailRegister,
             password: passwordRegister,
           })
         )
-      : dispatch(actions.login({
-        email: email,
-        password: password,
-      }));
+      : dispatch(
+          actions.login({
+            email: email,
+            password: password,
+          })
+        );
   };
+  if (isLoggedIn) {
+    return null; // Popup will not render if logged in
+  }
 
   return (
     <>
@@ -163,11 +186,7 @@ const PopupLoginComponent = ({
                   <p>
                     <span
                       className="module_login"
-                      onClick={() => {setIsRegister(false)
-                         setName("") 
-                         setEmailRegister("")
-                        setPasswordRegister("")}}
-                      
+                      onClick={() => setIsRegister(false)}
                     >
                       Đăng nhập ngay
                     </span>
@@ -176,7 +195,7 @@ const PopupLoginComponent = ({
                   <p>
                     <span
                       className="module_login"
-                      onClick={() => {setIsRegister(true)}}
+                      onClick={() => setIsRegister(true)}
                     >
                       Tạo tài khoản mới
                     </span>
@@ -213,7 +232,6 @@ const PopupLoginComponent = ({
           </form>
         </div>
       </div>
-      <ToastComponent />
     </>
   );
 };

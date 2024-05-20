@@ -4,9 +4,14 @@ import { TiLightbulb } from "react-icons/ti";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from '../../store/actions'
+// import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
 
 const HeaderComponent = () => {
+  const { isLoggedIn } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
   const [navMobile, setNavMobile] = useState(false);
   const [navChildGenre, setNavChildGenre] = useState(false);
   const [navChildTop, setNavChildTop] = useState(false);
@@ -96,12 +101,20 @@ const HeaderComponent = () => {
             </div>
             <div className="right">
               <div className="button-user">
-                <span>
+                {!isLoggedIn && <>
+                  <span>
                   <button onClick={handleRegisterClick}>Đăng ký</button>
                 </span>
                 <span>
                   <button onClick={handleLoginClick}>Đăng nhập</button>
                 </span>
+                </>}
+                {isLoggedIn && <>
+                  <small>Name !</small>
+                  <span>
+                  <button onClick={() => dispatch(actions.logout())}>Đăng Xuất</button>
+                </span>
+                </>}
               </div>
             </div>
           </div>

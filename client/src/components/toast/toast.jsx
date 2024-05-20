@@ -1,6 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-const ToastComponent = () => {
+export const ToastComponent = () => {
   return (
     <ToastContainer
       position="top-right"
@@ -13,10 +13,10 @@ const ToastComponent = () => {
       draggable
       pauseOnHover
       theme="light"
+      limit={1}
+      
       
       // transition:Bounce
     />
   );
 };
-
-export default ToastComponent;
