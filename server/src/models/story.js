@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Story.hasMany(models.Chapter, { foreignKey: 'story_id', as: 'chapters' });
+      Story.belongsToMany(models.Category, { through: 'StoryCategory' });
+      Story.belongsToMany(models.Author, { through: 'StoryAuthor' });
     }
   }
   Story.init({
@@ -25,9 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     view: DataTypes.STRING,
     status: DataTypes.STRING,
     follow: DataTypes.STRING,
-    category_id: DataTypes.STRING,
-    // chapter_id: DataTypes.STRING,
-    author_id: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Story',

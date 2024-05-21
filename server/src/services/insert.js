@@ -1,9 +1,9 @@
 import db from '../models'
 import bcrypt from 'bcryptjs'
 import { v4 } from 'uuid'
-import haihuoc from '../../data/result_haihuoc.json'
-// import huyenhuyen from '../../data/result_huyenhuyen.json'
-// import khoahuyen from '../../data/result_khoahuyen.json'
+// import haihuoc from '../../data/result_haihuoc.json'
+import huyenhuyen from '../../data/result_huyenhuyen.json'
+import khoahuyen from '../../data/result_khoahuyen.json'
 // import kiemhiep from '../../data/result_kiemhiep.json'
 // import lichsu from '../../data/result_lichsu.json'
 // import lightnovel from '../../data/result_lightnovel.json'
@@ -13,7 +13,7 @@ import haihuoc from '../../data/result_haihuoc.json'
 // import kiemhinuphuep from '../../data/result_nuphu.json'
 import generateCode from '../utils/generateCode'
 require('dotenv').config()
-const dataBody = haihuoc.stories
+const dataBody = khoahuyen.stories
 
 
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
@@ -24,9 +24,6 @@ export const insertService = () => new Promise(async (resolve, reject) => {
             let storyId = generateCode(4) // Generate unique ID for the story
             let authorId = generateCode(4) // Assuming you generate unique IDs for authors
             let categoryId = generateCode(4) // Assuming you generate unique IDs for categories
-
-
-            
             // Create author
             await db.Author.create({
                 id: authorId,
@@ -41,7 +38,7 @@ export const insertService = () => new Promise(async (resolve, reject) => {
                 name: item?.story?.title,
                 status: item?.story?.status,
                 view: item?.story?.view,
-                category_id: "1",
+                category_id: "3",
                 author_id: authorId,
             })
             // Loop through chapters and create them

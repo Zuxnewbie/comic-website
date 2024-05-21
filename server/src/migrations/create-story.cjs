@@ -19,19 +19,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       love: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       view: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       status: {
         type: Sequelize.STRING
       },
       follow: {
-        type: Sequelize.STRING
-      },
-      category_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       author_id: {
         type: Sequelize.STRING

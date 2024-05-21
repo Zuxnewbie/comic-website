@@ -3,6 +3,8 @@ import * as controllers from '../controllers/story'
 
 const router = express.Router()
 
-router.get("/", controllers.getCardCarousel)
+const carousel = router.get("/", controllers.getCardCarousel)
+const allStory = router.get("/all", controllers.getAllComic)
 
-export default router
+
+export {carousel, allStory}

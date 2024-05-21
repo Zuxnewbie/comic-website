@@ -5,31 +5,47 @@ import { Sequelize } from "sequelize";
 export const getCardCarouselService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Story.findAll({
-            raw: true,
             attributes: [
                 'story_id', 
                 'name', 
                 'image', 
                 'view',
-                [Sequelize.fn('COUNT', Sequelize.col('chapters.chapter_id')), 'chapter_count']
+                [Sequelize.literal('(SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = Story.story_id)'), 'chapter_count']
             ],
             limit: 12,
             order: [['view', 'DESC']],
-            include: [
-                {
-                    model: db.Chapter,
-                    attributes: [],
-                    as: 'chapters'
-                }
-            ],
             group: ['Story.story_id'],
-            subQuery: false // Disable subquery usage
+        });
+
+        resolve({
+            err: response.length ? 0 : 1,
+            msg: response.length ? "OK" : "Failed to get card carousel",
+            response
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+
+
+
+
+
+export const getAllComicService = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Story.findAll({
+            raw: true,
         });
         
 
         resolve({
             err: response.length ? 0 : 1,
-            msg: response.length ? "OK" : "Failed to get card carousel",
+            msg: response.length ? "OK" : "Failed to get all comic",
             response
         });
     } catch (error) {
