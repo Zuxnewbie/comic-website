@@ -10,12 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // define association 
+      Chapter.belongsTo(models.Story, { foreignKey: 'story_id', as: 'story' });
     }
   }
   Chapter.init({
-    chapter_id: DataTypes.STRING,
-    story_id: DataTypes.STRING,
+    chapter_id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    story_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: DataTypes.STRING,
     content: DataTypes.TEXT('long'),
   }, {

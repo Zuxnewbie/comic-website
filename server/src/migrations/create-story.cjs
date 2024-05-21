@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true
       },
-      storyId: {
+      story_id: {
         type: Sequelize.STRING
       },
       name: {
@@ -31,9 +31,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       category_id: {
-        type: Sequelize.STRING
-      },
-      chapter_id: {
         type: Sequelize.STRING
       },
       author_id: {

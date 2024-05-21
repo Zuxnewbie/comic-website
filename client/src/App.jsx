@@ -1,7 +1,8 @@
 import "./App.css";
-import { Outlet } from "react-router-dom";
 import HeaderComponent from "./components/header/header";
 import FooterComponent from "./components/footer/footer";
+import { Outlet } from "react-router-dom";
+import PopupLoginComponent from "./components/popup/popup";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <HeaderComponent />
         <Outlet />
         <FooterComponent />
-        
+        <PopupLoginComponent />
       </div>
     </>
   );

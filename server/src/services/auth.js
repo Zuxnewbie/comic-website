@@ -40,7 +40,7 @@ export const loginService = ({ email, password }) => new Promise(async (resolve,
         const token = isCorrectPassword && jwt.sign({ id: response.id, email: response.email }, process.env.SECRET_KEY, { expiresIn: '2d' })
         resolve({
             err: token ? 0 : 2,
-            msg: token ? 'Login is successfully !' : response ? 'Password is wrong !' : 'email not found !',
+            msg: token ? 'Login is successfully !' : response ? 'Password is wrong !' : 'Email not found !',
             token: token || null
         })
 

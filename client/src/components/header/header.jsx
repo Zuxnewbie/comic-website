@@ -1,22 +1,38 @@
 import "./header.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TiLightbulb } from "react-icons/ti";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from '../../store/actions'
+import { NavLink } from "react-router-dom";
+import * as actions from "../../store/actions";
+import { apiGetGenres } from '../../services/category'
+import {formatVietnameseToString} from '../../utils/common/formatVietnameseToString'
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
 
 const HeaderComponent = () => {
-  const { isLoggedIn } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [navMobile, setNavMobile] = useState(false);
   const [navChildGenre, setNavChildGenre] = useState(false);
   const [navChildTop, setNavChildTop] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await apiGetGenres()
+      // console.log("response from category", response);
+      if (response?.data.err === 0) {
+        setCategories(response.data.response)
+      }
+    }
+    fetchCategories()
+  }, [])
+
 
   const handleShowNavMobile = () => {
     setNavMobile(!navMobile);
@@ -42,6 +58,19 @@ const HeaderComponent = () => {
     setShowLoginPopup(false);
     setShowRegisterPopup(false);
   };
+
+  // const genre = [
+  //   { name: "Hài Hước", path: "hai-huoc" },
+  //   { name: "Huyền Huyễn", path: "huyen-huyen" },
+  //   { name: "Khoa Huyền", path: "khoa-huyen" },
+  //   { name: "Kiếm Hiệp", path: "kiem-hiep" },
+  //   { name: "Lịch Sử", path: "lich-su" },
+  //   { name: "Light Novel", path: "light-novel" },
+  //   { name: "Linh Di", path: "linh-di" },
+  //   { name: "Mạt Thế", path: "mat-the" },
+  //   { name: "Ngôn Tình", path: "ngon-tinh" },
+  //   { name: "Nữ Phụ", path: "nu-phu" },
+  // ];
 
   // const handleValidate = () => {
   //   validate.validateEmail(email);
@@ -101,20 +130,26 @@ const HeaderComponent = () => {
             </div>
             <div className="right">
               <div className="button-user">
-                {!isLoggedIn && <>
-                  <span>
-                  <button onClick={handleRegisterClick}>Đăng ký</button>
-                </span>
-                <span>
-                  <button onClick={handleLoginClick}>Đăng nhập</button>
-                </span>
-                </>}
-                {isLoggedIn && <>
-                  <small>Name !</small>
-                  <span>
-                  <button onClick={() => dispatch(actions.logout())}>Đăng Xuất</button>
-                </span>
-                </>}
+                {!isLoggedIn && (
+                  <>
+                    <span>
+                      <button onClick={handleRegisterClick}>Đăng ký</button>
+                    </span>
+                    <span>
+                      <button onClick={handleLoginClick}>Đăng nhập</button>
+                    </span>
+                  </>
+                )}
+                {isLoggedIn && (
+                  <>
+                    <small>Name !</small>
+                    <span>
+                      <button onClick={() => dispatch(actions.logout())}>
+                        Đăng Xuất
+                      </button>
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -140,16 +175,24 @@ const HeaderComponent = () => {
                 <div className="hidden_menu">
                   <div className="book_tags">
                     <div className="book_tags_content">
-                      <p>
-                        <a title="Action" href="/">
-                          Action
-                        </a>
-                      </p>
-                      <p>
+                      {categories?.length > 0 &&
+                        categories.map((item) => {
+                          return (
+                            <>
+                              <p key={item.catgory_id}>
+                                <NavLink title="Action" to={`${formatVietnameseToString(item.name)}`} className={"asd"}>
+                                  {item.name}
+                                </NavLink>
+                              </p>
+                            </>
+                          );
+                        })}
+
+                      {/* <p>
                         <a title="Adventure" href="/">
                           Adventure
                         </a>
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>

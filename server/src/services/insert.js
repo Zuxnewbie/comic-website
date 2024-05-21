@@ -2,15 +2,15 @@ import db from '../models'
 import bcrypt from 'bcryptjs'
 import { v4 } from 'uuid'
 import haihuoc from '../../data/result_haihuoc.json'
-import huyenhuyen from '../../data/result_huyenhuyen.json'
-import khoahuyen from '../../data/result_khoahuyen.json'
-import kiemhiep from '../../data/result_kiemhiep.json'
-import lichsu from '../../data/result_lichsu.json'
-import lightnovel from '../../data/result_lightnovel.json'
-import linhdi from '../../data/result_linhdi.json'
-import matthe from '../../data/result_matthe.json'
-import ngontinh from '../../data/result_ngontinh.json'
-import kiemhinuphuep from '../../data/result_nuphu.json'
+// import huyenhuyen from '../../data/result_huyenhuyen.json'
+// import khoahuyen from '../../data/result_khoahuyen.json'
+// import kiemhiep from '../../data/result_kiemhiep.json'
+// import lichsu from '../../data/result_lichsu.json'
+// import lightnovel from '../../data/result_lightnovel.json'
+// import linhdi from '../../data/result_linhdi.json'
+// import matthe from '../../data/result_matthe.json'
+// import ngontinh from '../../data/result_ngontinh.json'
+// import kiemhinuphuep from '../../data/result_nuphu.json'
 import generateCode from '../utils/generateCode'
 require('dotenv').config()
 const dataBody = haihuoc.stories
@@ -34,6 +34,16 @@ export const insertService = () => new Promise(async (resolve, reject) => {
                 description: '',
             })
 
+            // Create story with association to chapter and other details
+            await db.Story.create({
+                story_id: storyId,
+                image: item?.story?.image,
+                name: item?.story?.title,
+                status: item?.story?.status,
+                view: item?.story?.view,
+                category_id: "1",
+                author_id: authorId,
+            })
             // Loop through chapters and create them
             for (const chapter of item?.chapters || []) {
                 let chapterId = generateCode(4); // Generate unique ID for the chapter
@@ -46,16 +56,6 @@ export const insertService = () => new Promise(async (resolve, reject) => {
                 })
             }
 
-            // Create story with association to chapter and other details
-            await db.Story.create({
-                story_id: storyId,
-                image: item?.story?.image,
-                name: item?.story?.title,
-                status: item?.story?.status,
-                view: item?.story?.view,
-                // category_id: categoryId,
-                author_id: authorId,
-            })
 
             // Create category
             // await db.Category.create({  

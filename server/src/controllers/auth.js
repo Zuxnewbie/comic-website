@@ -1,9 +1,9 @@
 import * as authService from '../services/auth.js'
 
 export const register = async (req, res) => {
-    const { name, emailRegister, passwordRegister } = req.body
+    const { name, email, password } = req.body
     try {
-        if (!name || !emailRegister || !passwordRegister) return res.status(400).json({
+        if (!name || !email || !password) return res.status(400).json({
             err: 1,
             msg: 'Missing inputs !'
         })
