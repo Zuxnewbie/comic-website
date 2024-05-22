@@ -5,6 +5,8 @@ const router = express.Router()
 
 const carousel = router.get("/", controllers.getCardCarousel)
 const allStory = router.get("/all", controllers.getAllComic)
+const allChap = router.get("/getallchap", controllers.getAllChap)
 
 
-export {carousel, allStory}
+
+export {carousel, allStory, allChap}

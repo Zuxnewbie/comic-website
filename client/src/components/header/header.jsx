@@ -178,13 +178,12 @@ const HeaderComponent = () => {
                       {categories?.length > 0 &&
                         categories.map((item) => {
                           return (
-                            <>
-                              <p key={item.catgory_id}>
+                              <p key={item.category_id}>
                                 <NavLink title="Action" to={`${formatVietnameseToString(item.name)}`} className={"asd"}>
                                   {item.name}
+                                  {item.category_id}
                                 </NavLink>
                               </p>
-                            </>
                           );
                         })}
 

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association 
-      Chapter.belongsTo(models.Story, { foreignKey: 'story_id', as: 'story' });
+      Chapter.belongsTo(models.Story, { foreignKey: 'story_id', targetKey:"story_id", as: 'story' });
     }
   }
   Chapter.init({

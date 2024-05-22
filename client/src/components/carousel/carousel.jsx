@@ -108,8 +108,7 @@ const OwlCarouselComponent = () => {
       <Slider {...settings}>
           {carousel?.length > 0 && carousel.map((item) => {
             return(
-              <>
-              <div className="card">
+              <div className="card" key={item.story_id}>
                 <div className="book_avatar">
                   <a href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893">
                     <img
@@ -141,7 +140,6 @@ const OwlCarouselComponent = () => {
                   </div>
                 </div>
               </div>
-              </>
             )
           })}
 

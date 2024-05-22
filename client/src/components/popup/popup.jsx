@@ -150,6 +150,7 @@ const PopupLoginComponent = ({
                     <p>Mật khẩu:</p>
                     <input
                       type="password"
+                      autoComplete="on"
                       value={passwordRegister}
                       onChange={handlePasswordRegisterChange}
                     />
@@ -172,6 +173,7 @@ const PopupLoginComponent = ({
                     <p>Mật khẩu:</p>
                     <input
                       type="password"
+                      autoComplete="on"
                       value={password}
                       onChange={handlePasswordChange}
                     />

@@ -2,7 +2,10 @@ import MainContentComponent from "../main-content/main-content";
 import "./content-home.scss";
 import { FaFilter } from "react-icons/fa";
 
+
+
 const ContentHomeComponent = () => {
+
   return (
     <>
       <div className="home-hero">
