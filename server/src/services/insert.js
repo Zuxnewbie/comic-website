@@ -2,7 +2,7 @@ import db from '../models'
 import bcrypt from 'bcryptjs'
 import { v4 } from 'uuid'
 // import haihuoc from '../../data/result_haihuoc.json'
-import huyenhuyen from '../../data/result_huyenhuyen.json'
+// import huyenhuyen from '../../data/result_huyenhuyen.json'
 import khoahuyen from '../../data/result_khoahuyen.json'
 // import kiemhiep from '../../data/result_kiemhiep.json'
 // import lichsu from '../../data/result_lichsu.json'
@@ -38,8 +38,6 @@ export const insertService = () => new Promise(async (resolve, reject) => {
                 name: item?.story?.title,
                 status: item?.story?.status,
                 view: item?.story?.view,
-                category_id: "3",
-                author_id: authorId,
             })
             // Loop through chapters and create them
             for (const chapter of item?.chapters || []) {
@@ -52,6 +50,15 @@ export const insertService = () => new Promise(async (resolve, reject) => {
                     content: chapter?.chapter_content || '', // Retrieve chapter content
                 })
             }
+            // await db.StoryAuthor.create({
+            //     story_id: storyId,
+            //     author_id: authorId,
+            // })
+
+            // await db.StoryCategory.create({
+            //     story_id: storyId,
+            //     categoryId: categoryId
+            // })
 
 
             // Create category

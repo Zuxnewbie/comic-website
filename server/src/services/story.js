@@ -57,7 +57,7 @@ export const getAllComicService = () => new Promise(async (resolve, reject) => {
                     END
                 `), 'timeSinceLastUpdate']
             ],
-            limit: 30,
+            limit: 24,
             order: [[Sequelize.literal('lastUpdated'), 'DESC']],
             raw: true
         });
