@@ -1,6 +1,22 @@
 import "./banner.scss"
+// import { useState, useEffect } from "react";
+// import { apiBanner } from '../../services/banner'
 
 const BannerComponent = () => {
+
+// const [banner, setBanner] = useState([])
+
+
+//   useEffect(() => {
+//     const fetchCategories = async () => {
+//       const response = await apiBanner()
+//       // console.log("response from category", response);
+//       if (response?.data.err === 0) {
+//         setBanner(response.data.response)
+//       }
+//     }
+//     fetchCategories()
+//   }, [])
   return (
     <>
         <div className="container">

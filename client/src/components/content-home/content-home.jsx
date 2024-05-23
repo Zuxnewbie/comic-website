@@ -1,4 +1,5 @@
 import MainContentComponent from "../main-content/main-content";
+import PaginateComponent from "../paginate/paginate";
 import "./content-home.scss";
 import { FaFilter } from "react-icons/fa";
 
@@ -31,14 +32,15 @@ const ContentHomeComponent = () => {
 
           <MainContentComponent />
 
-          <div className="homepage-more">
+          {/* <div className="homepage-more">
             <a
               href="https://truyenqqviet.com/truyen-moi-cap-nhat/trang-2.html"
               className="view-more-btn"
             >
               Xem thêm nhiều truyện
             </a>
-          </div>
+          </div> */}
+          <PaginateComponent />
         </div>
       </div>
     </>

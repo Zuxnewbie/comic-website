@@ -1,7 +1,7 @@
 import authRouter from "./auth.js";
 import insertRouter from "./insert";
 import categoryRouter from "./category.js";
-import { carousel, allStory, allChap}  from "./story.js";
+import { carousel, allStory, allChap, banner}  from "./story.js";
 const initRoutes = (app) => {
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/insert", insertRouter);
@@ -9,6 +9,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/carousel", carousel);
   app.use("/api/v1/story", allStory);
   app.use("/api/v1/chapter", allChap);
+  app.use("/api/v1/banner", banner);
 
   
   return app.use("/", (req, res) => {

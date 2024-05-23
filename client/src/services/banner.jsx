@@ -1,10 +1,10 @@
 import axiosConfig from "../axiosConfig";
 
-export const apiAllComic = () =>
+export const apiBanner = () =>
   new Promise( (resolve, reject) => {
     axiosConfig({
       method: "get",
-      url: "/api/v1/story/all",
+      url: "/api/v1/banner/getbanner",
     })
       .then((response) => {
         resolve(response);

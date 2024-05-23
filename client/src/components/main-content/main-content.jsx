@@ -1,26 +1,35 @@
 import "./main-content.scss"
-import { apiAllComic } from '../../services/listComic'
-import { useState, useEffect } from "react";
+// import { apiGetAllStory } from '../../services/listStory'
+import { getStories } from "../../store/actions/story";
+import {  useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 
 const MainContentComponent = () => {
+  const dispatch = useDispatch()
+  const { stories } = useSelector(state => state.story)
 
-  const [listComic, setListComic] = useState([])
-
+  // const [listStory, setListStory] = useState([])
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiAllComic()
-      // console.log("response from category", response);
-      if (response?.data.err === 0) {
-        setListComic(response.data.response)
-      }
-    }
-    fetchCategories()
+    dispatch(getStories())
   }, [])
+  console.log("stories result =>>>", stories);
+
+
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const response = await apiGetAllStory()
+  //     // console.log("response from category", response);
+  //     if (response?.data.err === 0) {
+  //       setListStory(response.data.response)
+  //     }
+  //   }
+  //   fetchCategories()
+  // }, [])
     return ( 
         <div className="homepage-list">
         <ul className="homepage-list-item">
-          {listComic?.length > 0 && listComic.map((item) => {
+          {stories?.length > 0 && stories.map((item) => {
             return(
                 <li key={item.story_id}>
                   <div className="book_avatar">
