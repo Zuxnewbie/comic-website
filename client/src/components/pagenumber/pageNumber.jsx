@@ -29,10 +29,14 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
   }
 
   return (
-    <div className={+text === +currentPage ? `page-number active` : `page-number`} onClick={handleChangePage}>
+    <div
+      className={`${+text === +currentPage ? 'active' : 'not-active'} ${text === '...' ? 'cursor-text' : 'cursor-pointer'} page-number`}
+      onClick={handleChangePage}
+    >
       {icon || text}
     </div>
   );
+  
 };
 
 export default memo(PageNumber);

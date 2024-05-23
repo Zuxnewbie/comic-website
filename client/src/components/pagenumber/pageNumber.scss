@@ -3,7 +3,6 @@
   line-height: 40px;
   width: 40px;
   border-radius: 150px;
-  cursor: pointer;
   &:hover {
     background: #f18121;
     color: #ebebeb;
@@ -16,4 +15,16 @@
 .active{
   background: #f18121;
   color: #ebebeb;
+}
+
+.not-active{
+  cursor: text;
+}
+
+.cursor-text{
+  cursor: text;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

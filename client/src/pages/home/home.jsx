@@ -1,6 +1,7 @@
 import BannerComponent from "../../components/banner/banner";
 import OwlCarouselComponent from "../../components/carousel/carousel";
-import ContentHomeComponent from "../../components/content-home/content-home";
+// import ContentHomeComponent from "../../components/content-home/content-home";
+import MainContentComponent from "../../components/main-content/main-content";
 import PopupComponent from "../../components/popup/popup";
 import "./home.scss"
 const HomePage = () => {
@@ -18,7 +19,16 @@ const HomePage = () => {
           </p>
         </h1>
       </div>
-      <ContentHomeComponent />
+
+      <div className="home-hero">
+        <div className="main-homepage">
+
+          <MainContentComponent />
+
+
+        </div>
+      </div>
+
       <div className="homepage-more">
         <a
           href="https://truyenqqviet.com/truyen-moi-cap-nhat/trang-2.html"

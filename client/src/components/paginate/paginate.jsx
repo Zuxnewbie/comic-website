@@ -5,7 +5,6 @@ import icons from "../../utils/icons";
 import { useEffect, useState } from "react";
 
 const { GrLinkNext, GrLinkPrevious   } = icons;
-// const arrNumber = [1, 2, 3];
 
 const PaginateComponent = ({ page }) => {
   const { count, stories } = useSelector((state) => state.story);

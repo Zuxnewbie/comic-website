@@ -1,19 +1,22 @@
 import "./header.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TiLightbulb } from "react-icons/ti";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { apiGetGenres } from '../../services/category'
 import {formatVietnameseToString} from '../../utils/common/formatVietnameseToString'
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
 const HeaderComponent = () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const headerRef = useRef()
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const [searchParams] = useSearchParams()
+
   const [navMobile, setNavMobile] = useState(false);
   const [navChildGenre, setNavChildGenre] = useState(false);
   const [navChildTop, setNavChildTop] = useState(false);
@@ -31,6 +34,10 @@ const HeaderComponent = () => {
     }
     fetchCategories()
   }, [])
+
+  useEffect(() => {
+    headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [searchParams.get('page')])
 
 
   const handleShowNavMobile = () => {
@@ -77,7 +84,7 @@ const HeaderComponent = () => {
 
   return (
     <>
-      <header>
+      <header ref={headerRef}>
         <div className="top">
           <div className="div_middle">
             <div className="left">

@@ -1,0 +1,59 @@
+
+.home-hero {
+    background-color: #ebebeb;
+    padding: 0 1rem;
+    .main-homepage {
+      max-width: 1200px;
+      padding-bottom: 20px;
+      margin: 0 auto;
+  
+      .homepage-more {
+        padding-top: 10px;
+        text-align: center !important;
+  
+        .view-more-btn {
+          border-radius: 5px;
+          box-shadow: 0 0 3px 0 rgb(0 0 0 / 25%);
+          background-color: #f18121;
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
+          padding: 12px 20px;
+          display: inline-block;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+  
+    }
+  }
+  
+  @media (max-width: 740px) {
+    .main-homepage {
+      .homepage-list {
+        .homepage-list-item {
+          gap: 2px;
+          li {
+            width: 30%;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 740px) and (max-width: 1024px) {
+    .main-homepage {
+      .homepage-list {
+        .homepage-list-item {
+          gap: 6px;
+          li {
+            width: 20%;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 1024px) {
+  }
+  
