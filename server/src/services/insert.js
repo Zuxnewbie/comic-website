@@ -3,9 +3,9 @@ import bcrypt from 'bcryptjs'
 import { v4 } from 'uuid'
 // import haihuoc from '../../data/result_haihuoc.json'
 // import huyenhuyen from '../../data/result_huyenhuyen.json'
-import khoahuyen from '../../data/result_khoahuyen.json'
+// import khoahuyen from '../../data/result_khoahuyen.json'
 // import kiemhiep from '../../data/result_kiemhiep.json'
-// import lichsu from '../../data/result_lichsu.json'
+import lichsu from '../../data/result_lichsu.json'
 // import lightnovel from '../../data/result_lightnovel.json'
 // import linhdi from '../../data/result_linhdi.json'
 // import matthe from '../../data/result_matthe.json'
@@ -13,7 +13,7 @@ import khoahuyen from '../../data/result_khoahuyen.json'
 // import kiemhinuphuep from '../../data/result_nuphu.json'
 import generateCode from '../utils/generateCode'
 require('dotenv').config()
-const dataBody = khoahuyen.stories
+const dataBody = lichsu.stories
 
 
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
@@ -55,29 +55,12 @@ export const insertService = () => new Promise(async (resolve, reject) => {
             //     author_id: authorId,
             // })
 
-            // await db.StoryCategory.create({
-            //     story_id: storyId,
-            //     categoryId: categoryId
-            // })
+            await db.StoryCategory.create({
+                story_id: storyId,
+                category_id: '5'
+            })
 
-
-            // Create category
-            // await db.Category.create({  
-            //     id: categoryId,
-            //     name: item?.category_description?.category_name,
-            //     description: item?.category_description?.description,
-            // })
-
-            // Add additional operations if needed (e.g., creating comments)
         }
-        
-        
-        
-        // await db.Category.create({  
-        //     category_id: category_id,
-        //     name: item?.category_description?.category_name,
-        //     description: item?.category_description?.description,
-        // })
 
         // await db.Comment.create({
         //     id: commentId,

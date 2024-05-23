@@ -1,0 +1,19 @@
+.page-number {
+  color: #000;
+  line-height: 40px;
+  width: 40px;
+  border-radius: 150px;
+  cursor: pointer;
+  &:hover {
+    background: #f18121;
+    color: #ebebeb;
+    transition: 0.5s ;
+  }
+  
+  
+}
+
+.active{
+  background: #f18121;
+  color: #ebebeb;
+}

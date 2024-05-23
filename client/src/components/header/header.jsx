@@ -5,13 +5,12 @@ import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { apiGetGenres } from '../../services/category'
 import {formatVietnameseToString} from '../../utils/common/formatVietnameseToString'
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
-
 const HeaderComponent = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -83,14 +82,14 @@ const HeaderComponent = () => {
           <div className="div_middle">
             <div className="left">
               <div className="logo">
-                <a href="/" title="Truyện tranh online">
+                <Link href="/" title="Truyện tranh online">
                   <p className="pc_display"></p>
                   <img
                     alt="TruyenQQ"
                     className="mobile_display"
                     src="https://st.truyenqqviet.com/template/frontend/images/logo-icon.png"
                   />
-                </a>
+                </Link>
               </div>
               <div className="change-mode">
                 <button id="setting_dark_mode" className="dark_mode">

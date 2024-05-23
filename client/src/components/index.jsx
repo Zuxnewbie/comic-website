@@ -1,0 +1,1 @@
+export { default as PageNumber } from './pagenumber/pageNumber'

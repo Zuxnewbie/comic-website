@@ -1,25 +1,30 @@
 .page_redirect {
     margin: 20px 0;
     text-align: center;
-    a {
-      cursor: pointer;
-      text-decoration: none !important;
-      color: inherit;
-      p {
-        margin: 0 4px;
-        line-height: 40px;
-        width: 40px;
-        text-align: center;
-        display: inline-block;
-        border-radius: 150px;
-        cursor: pointer;
-        font-size: 16px;
-        border: 1px solid #e2e2e2;
-      }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: auto;
+    font-size: 1rem;
+    // a {
+    //   cursor: pointer;
+    //   text-decoration: none !important;
+    //   color: inherit;
+    //   p {
+    //     margin: 0 4px;
+    //     line-height: 40px;
+    //     width: 40px;
+    //     text-align: center;
+    //     display: inline-block;
+    //     border-radius: 150px;
+    //     cursor: pointer;
+    //     font-size: 16px;
+    //     border: 1px solid #e2e2e2;
+    //   }
 
-      p.active {
-        background-color: #f18121;
-        color: #fff;
-      }
-    }
+    //   p.active {
+    //     background-color: #f18121;
+    //     color: #fff;
+    //   }
+    // }
   }

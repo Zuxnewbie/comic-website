@@ -1,20 +1,22 @@
 import "./main-content.scss"
 // import { apiGetAllStory } from '../../services/listStory'
-import { getStories } from "../../store/actions/story";
+import {  getStoriesLimit } from "../../store/actions/story";
 import {  useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 
 const MainContentComponent = () => {
   const dispatch = useDispatch()
-  const { stories } = useSelector(state => state.story)
+  const { stories, count } = useSelector(state => state.story)
 
+  console.log("stories from main-content", stories);
+  console.log("count from main-content", count);
   // const [listStory, setListStory] = useState([])
 
   useEffect(() => {
-    dispatch(getStories())
+    dispatch(getStoriesLimit(0))
   }, [])
-  console.log("stories result =>>>", stories);
-
+  // console.log("stories result =>>>", stories);
+  // console.log("count =>>>", count);
 
   // useEffect(() => {
   //   const fetchCategories = async () => {
