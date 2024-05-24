@@ -1,8 +1,8 @@
 import "./App.css";
 import HeaderComponent from "./components/header/header";
 import FooterComponent from "./components/footer/footer";
-import { Outlet } from "react-router-dom";
 import PopupLoginComponent from "./components/popup/popup";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (

@@ -7,38 +7,37 @@ import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
-import { apiGetGenres } from '../../services/category'
-import {formatVietnameseToString} from '../../utils/common/formatVietnameseToString'
+import { apiGetGenres } from "../../services/category";
+import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
 const HeaderComponent = () => {
   const dispatch = useDispatch();
-  const headerRef = useRef()
+  const headerRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams();
 
   const [navMobile, setNavMobile] = useState(false);
   const [navChildGenre, setNavChildGenre] = useState(false);
   const [navChildTop, setNavChildTop] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await apiGetGenres()
+      const response = await apiGetGenres();
       // console.log("response from category", response);
       if (response?.data.err === 0) {
-        setCategories(response.data.response)
+        setCategories(response.data.response);
       }
-    }
-    fetchCategories()
-  }, [])
+    };
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
-    headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [searchParams.get('page')])
-
+    headerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchParams.get("page")]);
 
   const handleShowNavMobile = () => {
     setNavMobile(!navMobile);
@@ -89,7 +88,7 @@ const HeaderComponent = () => {
           <div className="div_middle">
             <div className="left">
               <div className="logo">
-                <Link href="/" title="Truyện tranh online">
+                <Link to={"/"} title="Truyện tranh online">
                   <p className="pc_display"></p>
                   <img
                     alt="TruyenQQ"
@@ -164,9 +163,9 @@ const HeaderComponent = () => {
           <div className="middle">
             <ul className="middle_menu">
               <li className="middle_menu_item">
-                <a className="middle_menu_item_title" href="/">
+                <Link to={"/"} className="middle_menu_item_title">
                   Trang Chủ
-                </a>
+                </Link>
               </li>
               <span
                 className="middle_menu_fabars"
@@ -184,12 +183,16 @@ const HeaderComponent = () => {
                       {categories?.length > 0 &&
                         categories.map((item) => {
                           return (
-                              <p key={item.category_id}>
-                                <NavLink title="Action" to={`${formatVietnameseToString(item.name)}`} className={"asd"}>
-                                  {item.name}
-                                  {item.category_id}
-                                </NavLink>
-                              </p>
+                            <p key={item.category_id}>
+                              <NavLink
+                                title="Action"
+                                to={`${formatVietnameseToString(item.name)}`}
+                                className={"asd"}
+                              >
+                                {item.name}
+                                {item.category_id}
+                              </NavLink>
+                            </p>
                           );
                         })}
 

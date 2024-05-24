@@ -6,21 +6,11 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
   const navigate = useNavigate();
 
 
-  // const handleChangePage = () => {
-
-  //     navigate({
-  //       pathname: "/",
-  //       search: createSearchParams({
-  //         page: text,
-  //       }).toString(),
-  //     });
-  // };
-
   const handleChangePage = () => {
     if (!(text === '...')) {
         setCurrentPage(+text)
         navigate({
-            pathname: "/",
+            pathname: "/new/",
             search: createSearchParams({
                 page: text
             }).toString()
@@ -36,7 +26,7 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
       {icon || text}
     </div>
   );
-  
 };
+
 
 export default memo(PageNumber);

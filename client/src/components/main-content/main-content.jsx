@@ -3,17 +3,19 @@ import "./main-content.scss";
 import { getStoriesLimit } from "../../store/actions/story";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link} from 'react-router-dom'
+import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
 const MainContentComponent = ({ page }) => {
   const dispatch = useDispatch();
   const { stories } = useSelector((state) => state.story);
 
-  console.log("stories from main-content", stories);
+  // console.log("stories from main-content", stories);
   // console.log("count from main-content", count);
   // const [listStory, setListStory] = useState([])
 
   useEffect(() => {
-    let offset = page ? +page - 1 : 0
+    let offset = page ? +page - 1 : 0;
 
     dispatch(getStoriesLimit(offset));
   }, [page]);
@@ -40,30 +42,27 @@ const MainContentComponent = ({ page }) => {
             return (
               <li key={item.story_id}>
                 <div className="book_avatar">
-                  <a href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893">
+                  <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`}>
                     <img className="center" src={item.image} alt={item.name} />
-                  </a>
+                  </Link>
                   <div className="top-notice">
                     <span className="time-ago">{item.timeSinceLastUpdate}</span>
-                    <span className="type-label hot">Hot</span>
+                    <span className="type-label hot">Hot </span>
                   </div>
                 </div>
                 <div className="book_info">
                   <div className="book_name">
                     <h3 className="name">
-                      <a
-                        title={item.name}
-                        href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893"
-                      >
-                        {item.name}
-                      </a>
+                    <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`} title={item.name}>
+                      {item.name}
+                    </Link>
                     </h3>
                   </div>
                   <div className="last_chapter">
-                    <a href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893-chap-669.html">
-                      Chương {item.chapter_count}
-                    </a>
-                  </div>
+                  <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`}>
+                    Chương {item.chapter_count}
+                  </Link>
+                </div>
                 </div>
               </li>
             );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BannerComponent from "../../components/banner/banner";
 import OwlCarouselComponent from "../../components/carousel/carousel";
 // import ContentHomeComponent from "../../components/content-home/content-home";
@@ -30,12 +31,12 @@ const HomePage = () => {
       </div>
 
       <div className="homepage-more">
-        <a
-          href="https://truyenqqviet.com/truyen-moi-cap-nhat/trang-2.html"
+        <Link
+          to={'new?page=1'}
           className="view-more-btn"
         >
           Xem thêm nhiều truyện
-        </a>
+        </Link>
       </div>
 
       <PopupComponent />
