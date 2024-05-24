@@ -7,17 +7,19 @@ import { useSearchParams } from "react-router-dom";
 import MainContentComponent from "../../components/main-content/main-content";
 const NewPage = () => {
   const [params] = useSearchParams();
-  console.log("params ==>", params.get("page"));
+  const page = params.get("page");
+  console.log("params ==>", page);
 
   return (
     <>
       <SearchCategory />
       <div className="home-hero">
         <div className="main-homepage">
-          <MainContentComponent page={params.get("page")} />
+          {/* <MainContentComponent page={page} /> */}
+          <MainContentComponent page={page} isNewPage={true} /> {/* Set isNewPage to true */}
         </div>
       </div>
-      <PaginateComponent page={params.get("page")} />
+      <PaginateComponent page={page} />
       <PopupComponent />
     </>
   );

@@ -10,7 +10,8 @@ module.exports = {
         autoIncrement: true
       },
       story_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING

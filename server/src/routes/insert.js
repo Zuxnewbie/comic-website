@@ -4,7 +4,7 @@ import * as insertController from '../controllers/insert'
 
 const router = express.Router()
 router.post('/', insertController.insert)
-console.log("insertController.insert0, ", insertController.insert);
+// console.log("insertController.insert0, ", insertController.insert);
 
 
 export default router

@@ -20,9 +20,9 @@ const PaginateComponent = ({ page }) => {
     
     let maxPage = Math.floor( count / stories.length);
     // console.log("maxpage =>", maxPage);
-    let end = currentPage + 2 > maxPage ? maxPage : currentPage + 2;
+    let end = currentPage + 1 > maxPage ? maxPage : currentPage + 1;
     // console.log("end =>", end);
-    let start = currentPage - 2 <= 0 ? 1 : currentPage - 2;
+    let start = currentPage - 1 <= 0 ? 1 : currentPage - 1;
     // console.log("start =>", start);
     let temp = [];
     for (let i = start; i <= end; i++) temp.push(i);

@@ -3,7 +3,6 @@ import BannerComponent from "../../components/banner/banner";
 import OwlCarouselComponent from "../../components/carousel/carousel";
 // import ContentHomeComponent from "../../components/content-home/content-home";
 import MainContentComponent from "../../components/main-content/main-content";
-import PopupComponent from "../../components/popup/popup";
 import "./home.scss"
 const HomePage = () => {
   return (
@@ -24,8 +23,7 @@ const HomePage = () => {
       <div className="home-hero">
         <div className="main-homepage">
 
-          <MainContentComponent />
-
+        <MainContentComponent isNewPage={false} /> {/* Set isNewPage to false */}
 
         </div>
       </div>
@@ -39,7 +37,6 @@ const HomePage = () => {
         </Link>
       </div>
 
-      <PopupComponent />
     </>
   );
 };

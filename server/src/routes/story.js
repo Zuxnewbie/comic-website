@@ -8,5 +8,7 @@ const allStory = router.get("/all", controllers.getAllComic)
 const allChap = router.get("/getallchap", controllers.getAllChap)
 const banner = router.get("/getbanner", controllers.getBanner)
 const storyLimit = router.get("/limit", controllers.getAllComicLimit)
+const categoryDetail = router.get("/detail", controllers.getComicByCategory)
 
-export {carousel, allStory, allChap, banner, storyLimit}
+
+export {carousel, allStory, allChap, banner, storyLimit, categoryDetail}

@@ -12,14 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Story.hasMany(models.Chapter, { foreignKey: 'story_id', as: 'story' });
-      Story.belongsToMany(models.Category, { through: 'StoryCategory' });
+      Story.belongsToMany(models.Category, { through: 'StoryCategories', foreignKey: 'story_id', as: 'categories' });
       Story.belongsToMany(models.Author, { through: 'StoryAuthor' });
     }
   }
   Story.init({
     story_id: {
       type: DataTypes.STRING,
-      primaryKey: true,
     },
     name: DataTypes.STRING,
     image: DataTypes.STRING,

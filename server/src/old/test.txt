@@ -67,3 +67,60 @@ export default router;
 //     });
 //   }
 // };
+
+
+
+
+
+
+
+
+
+
+
+export const getAllComicByCategoryLimitService = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            
+            const stories = await db.Story.findAll({
+                attributes: [
+                    'story_id',
+                    'name',
+                    'image',
+                    [Sequelize.literal('(SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = Story.story_id)'), 'chapter_count'],
+                    [Sequelize.literal('(SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id)'), 'lastUpdated'],
+                    [
+                      Sequelize.literal(`CASE
+                        WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' minutes ago')      
+                        WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' hours ago')
+                        WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' days ago')
+                        ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' months ago')
+                      END`),
+                      'timeSinceLastUpdate'
+                    ]
+                  ],
+                  include: [{
+                    model: db.StoryCategory,
+                    attributes: [],
+                    include: [{
+                      model: db.Category,
+                      where: { name: 'Hài Hước' },
+                      attributes: ['category_id', 'name', 'description', 'createdAt', 'updatedAt']
+                    }]
+                  }]
+            });
+
+            resolve({
+                err: stories.length ? 0 : 1,
+                msg: stories.length ? "OK" : "Failed to get comic by category",
+                stories
+            });
+        } catch (error) {
+            reject({
+                err: -1,
+                msg: "Failed at story controller =>>> ",
+                error
+            });
+        }
+    });
+};

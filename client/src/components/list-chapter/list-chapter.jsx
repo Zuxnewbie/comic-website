@@ -13,7 +13,6 @@ export default function ListChapterComponent() {
         <div className="chapter-content">
           <div className="name-chap">
             <a
-              className="active"
               href="https://truyenqqviet.com/truyen-tranh/quy-vuong-ve-huu-15663-chap-20.html"
             >
               Chương 20
@@ -24,7 +23,6 @@ export default function ListChapterComponent() {
         <div className="chapter-content">
           <div className="name-chap">
             <a
-              className="active"
               href="https://truyenqqviet.com/truyen-tranh/quy-vuong-ve-huu-15663-chap-20.html"
             >
               Chương 20

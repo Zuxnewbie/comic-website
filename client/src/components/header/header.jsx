@@ -186,7 +186,7 @@ const HeaderComponent = () => {
                             <p key={item.category_id}>
                               <NavLink
                                 title="Action"
-                                to={`${formatVietnameseToString(item.name)}`}
+                                to={`genre/${formatVietnameseToString(item.name)}`}
                                 className={"asd"}
                               >
                                 {item.name}

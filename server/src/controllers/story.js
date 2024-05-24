@@ -25,9 +25,6 @@ export const getCardCarousel = async (req, res) => {
     }
 }
 
-
-
-
 export const getAllComic = async (req, res) => {
     try {
         const response = await services.getAllComicService()
@@ -63,5 +60,21 @@ export const getAllChap = async (req, res) => {
             err: -1,
             msg: "Failed at story controller =>>> ", error
         })
+    }
+}
+
+export const getComicByCategory = async (req, res) => { 
+    const { cate } = req.query 
+
+    try {
+        const response = await services.getAllComicByCategoryLimitService(cate);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getComicByCategory:", error); // Log the error for debugging
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get comics by category",
+            error: error.message // Send the error message in the response
+        });
     }
 }

@@ -4,6 +4,7 @@ import Home from "./pages/home/home";
 import { path } from "./utils/constanst";
 import NewPage from "./pages/new/new";
 import StoryDetail from "./pages/story/story";
+import GenresPage from "./pages/genres/genres";
 
 const Layout = () => {
   return (
@@ -15,6 +16,8 @@ const Layout = () => {
             <Route path={path.HOME__PAGE} element={<NewPage />} />
           </Route>
           <Route path="detail/:name/:story_id" element={<StoryDetail />} />
+          <Route path="genre/:name" element={<GenresPage />} />
+          
         </Route>
       </Routes>
     </>

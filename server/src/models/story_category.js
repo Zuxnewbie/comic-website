@@ -11,11 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // Định nghĩa mối quan hệ giữa StoryCategory và Story
+      this.belongsTo(models.Story, { foreignKey: 'story_id', as: 'story' });
+
+      // Định nghĩa mối quan hệ giữa StoryCategory và Category
+      this.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' });
     }
   }
   StoryCategory.init({
-    story_id: DataTypes.STRING,
-    category_id: DataTypes.STRING
+    story_id: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    category_id: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'StoryCategory',

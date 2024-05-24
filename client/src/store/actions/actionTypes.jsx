@@ -8,6 +8,8 @@ const actionTypes = {
 
     GET_STORIES: 'GET_STORIES',
     GET_STORIES_LIMIT: 'GET_STORIES_LIMIT',
+
+    GET_GENRE_DETAILS: 'GET_GENRE_DETAILS'
     
 }
 

@@ -11,11 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsToMany(models.Story, { through: 'StoryCategory' });
+      Category.belongsToMany(models.Story, { through: 'StoryCategories', foreignKey: 'category_id', as: 'stories' });
     }
   }
   Category.init({
-    category_id: DataTypes.STRING,
+    category_id: {
+      type: DataTypes.STRING,
+    },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
   }, {

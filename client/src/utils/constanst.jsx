@@ -3,6 +3,7 @@ export const path = {
     HOME__PAGE: ':page',
     LOGIN: 'login',
     DETAIL_STORY__NAME__STORYID: 'detail/:name/:story_id',
+    DETAIL_GENRE__NAME: 'genre/:name',
 
 
     HAI_HUOC: 'hai-huoc',
