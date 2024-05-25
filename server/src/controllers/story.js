@@ -78,3 +78,89 @@ export const getComicByCategory = async (req, res) => {
         });
     }
 }
+
+
+export const getComicById = async (req, res) => {
+    const { story_id } = req.query; 
+
+    try {
+        const response = await services.getComicByIdService(story_id);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getComicById:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get comic by id",
+            error: error.message
+        });
+    }
+};
+
+
+export const getChapterByComicId = async (req, res) => {
+    const { story_id } = req.query;
+
+    try {
+        const response = await services.getChapterByComicIdService(story_id);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getChaptersByStoryId:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get chapters by story id",
+            error: error.message
+        });
+    }
+};
+
+
+
+export const getChapterDetailById = async (req, res) => {
+    const { chapter_id } = req.query;
+
+    try {
+        const response = await services.getChapterDetailByIdService(chapter_id);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getChapterDetailById:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get chapter detail by chapter id",
+            error: error.message
+        });
+    }
+};
+
+
+export const getStoriesByStatusNotFull = async (req, res) => {
+    const status = "Đang ra";  // Set the status to "Đang ra"
+
+    try {
+        const response = await services.getStoriesByStatusService(status);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getStoriesByStatus:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get stories by status",
+            error: error.message
+        });
+    }
+};
+
+
+export const getStoriesByStatusFull = async (req, res) => {
+    const status = "Full";  // Set the status to "Đang ra"
+
+    try {
+        const response = await services.getStoriesByStatusFullService(status);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getStoriesByStatusFull:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get stories by status 'Full'",
+            error: error.message
+        });
+    }
+};

@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     view: DataTypes.STRING,
     status: DataTypes.STRING,
     follow: DataTypes.STRING,
+    description: DataTypes.TEXT('long')
   }, {
     sequelize,
     modelName: 'Story',

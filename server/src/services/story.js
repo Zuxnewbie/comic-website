@@ -72,11 +72,6 @@ export const getCardCarouselService = () => new Promise(async (resolve, reject) 
     }
 });
 
-
-
-
-
-
 // / Service for getting all comics
 export const getAllComicService = () => new Promise(async (resolve, reject) => {
     try {
@@ -117,7 +112,6 @@ export const getAllComicService = () => new Promise(async (resolve, reject) => {
         });
     }
 });
-
 
 export const getAllComicLimitService = (offset) => new Promise(async (resolve, reject) => {
     try {
@@ -216,7 +210,6 @@ export const getAllComicByCategoryLimitService = (cate) => {
     });
 };
 
-
 export const getAllChapterService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Chapter.findAll({
@@ -242,4 +235,115 @@ export const getAllChapterService = () => new Promise(async (resolve, reject) =>
     }
 });
 
+export const getComicByIdService = (storyId) => new Promise(async (resolve, reject) => {
+    try {
+        const story = await db.Story.findOne({
+            where: {
+              story_id: storyId || 0
+            },
+          });
+            console.log("storyId0000", storyId);
 
+        resolve({
+            err: story ? 0 : 1,
+            msg: story ? "OK" : "Failed to get comic by id",
+            story // Resolve with 'story' instead of 'response'
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+export const getChapterByComicIdService = (storyId) => new Promise(async (resolve, reject) => {
+    try {
+        const chapters = await db.Chapter.findAll({
+            where: {
+                story_id: storyId
+            }
+        });
+        // console.log("chapter list: ", chapters);
+
+        resolve({
+            err: chapters.length ? 0 : 1,
+            msg: chapters.length ? "OK" : "Failed to get chapters by storyId",
+            chapters
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at chapter controller =>>> ",
+            error
+        });
+    }
+});
+
+export const getChapterDetailByIdService = (chapterId) => new Promise(async (resolve, reject) => {
+    try {
+        const chapter = await db.Chapter.findOne({
+            where: {
+                chapter_id: chapterId
+            }
+        });
+
+        resolve({
+            err: chapter ? 0 : 1,
+            msg: chapter ? "OK" : "Failed to get chapter detail by chapterId",
+            chapter
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at chapter controller =>>> ",
+            error
+        });
+    }
+});
+
+export const getStoriesByStatusService = (status) => new Promise(async (resolve, reject) => {
+    try {
+        const stories = await db.Story.findAll({
+            where: {
+                status: status
+            }
+        });
+
+        resolve({
+            err: stories.length ? 0 : 1,
+            msg: stories.length ? "OK" : `No stories found with status ${status}`,
+            stories
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+
+export const getStoriesByStatusFullService = () => new Promise(async (resolve, reject) => {
+    try {
+        const stories = await db.Story.findAll({
+            where: {
+                status: "Full"
+            }
+        });
+
+        resolve({
+            err: stories.length ? 0 : 1,
+            msg: stories.length ? "OK" : "No stories found with status 'Full'",
+            stories
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
