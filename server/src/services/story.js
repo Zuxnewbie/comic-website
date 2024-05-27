@@ -325,7 +325,6 @@ export const getStoriesByStatusService = (status) => new Promise(async (resolve,
     }
 });
 
-
 export const getStoriesByStatusFullService = () => new Promise(async (resolve, reject) => {
     try {
         const stories = await db.Story.findAll({
@@ -337,6 +336,80 @@ export const getStoriesByStatusFullService = () => new Promise(async (resolve, r
         resolve({
             err: stories.length ? 0 : 1,
             msg: stories.length ? "OK" : "No stories found with status 'Full'",
+            stories
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+export const getAuthorService = () => new Promise(async (resolve, reject) => {
+    try {
+        const stories = await db.Story.findAll({
+            where: {
+                status: "Full"
+            }
+        });
+
+        resolve({
+            err: stories.length ? 0 : 1,
+            msg: stories.length ? "OK" : "No stories found with status 'Full'",
+            stories
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+export const getAuthorByStoryIdService = (storyId) => new Promise(async (resolve, reject) => {
+    try {
+        const story = await db.Story.findOne({
+            where: { story_id: storyId },
+            include: {
+                model: db.Author,
+                as: 'author',
+                attributes: ['name']
+            }
+        });
+
+        resolve({
+            err: story ? 0 : 1,
+            msg: story ? "OK" : "Story or author not found",
+            story
+        });
+    } catch (error) {
+        reject({
+            err: -1,
+            msg: "Failed at story controller =>>> ",
+            error
+        });
+    }
+});
+
+
+export const getStoriesByAuthorIdService = (authorId) => new Promise(async (resolve, reject) => {
+    try {
+        const stories = await db.Story.findAll({
+            where: { author_id: authorId },
+            // attributes: ['story_id', 'name', 'image', 'love', 'view', 'status', 'follow', 'description'],
+            include: {
+                model: db.Author,
+                as: 'author',
+                attributes: ['name']
+            }
+        });
+
+        resolve({
+            err: stories.length ? 0 : 1,
+            msg: stories.length ? "OK" : "No stories found for this author",
             stories
         });
     } catch (error) {

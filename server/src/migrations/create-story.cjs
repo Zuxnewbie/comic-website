@@ -31,6 +31,9 @@ module.exports = {
       follow: {
         type: Sequelize.INTEGER
       },
+      author_id:{
+        type: Sequelize.STRING
+      },
       description:{
         type: Sequelize.STRING
       },

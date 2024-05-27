@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 import { persistReducer } from "redux-persist";
+import genreReducer from "./genreReducer";
 
 
 const commonConfig = {
@@ -21,7 +22,9 @@ const authConfig = {
 const rootReducer = combineReducers({
     auth: persistReducer(authConfig, authReducer),
     user: userReducer,
-    story: storyReducer
+    story: storyReducer,
+    genre: genreReducer,
+
 })
 
 export default rootReducer

@@ -7,13 +7,14 @@ import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
-import { apiGetGenres } from "../../services/category";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
+// import { apiGetGenres } from "../../services/category";
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
 const HeaderComponent = () => {
   const dispatch = useDispatch();
   const headerRef = useRef();
+  const { genres } = useSelector(state => state.genre)
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [searchParams] = useSearchParams();
 
@@ -22,17 +23,19 @@ const HeaderComponent = () => {
   const [navChildTop, setNavChildTop] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetGenres();
-      // console.log("response from category", response);
-      if (response?.data.err === 0) {
-        setCategories(response.data.response);
-      }
-    };
-    fetchCategories();
+    // const fetchCategories = async () => {
+    //   const response = await apiGetGenres();
+    //   // console.log("response from category", response);
+    //   if (response?.data.err === 0) {
+    //     setCategories(response.data.response);
+    //   }
+    // };
+    // fetchCategories();
+
+    dispatch(actions.getGenreDetails())
   }, []);
 
   useEffect(() => {
@@ -180,8 +183,8 @@ const HeaderComponent = () => {
                 <div className="hidden_menu">
                   <div className="book_tags">
                     <div className="book_tags_content">
-                      {categories?.length > 0 &&
-                        categories.map((item) => {
+                      {genres?.length > 0 &&
+                        genres.map((item) => {
                           return (
                             <p key={item.category_id}>
                               <NavLink

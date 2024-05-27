@@ -164,3 +164,35 @@ export const getStoriesByStatusFull = async (req, res) => {
         });
     }
 };
+
+export const getAuthorByStoryId = async (req, res) => {
+    const { story_id } = req.query;
+
+    try {
+        const response = await services.getAuthorByStoryIdService(story_id);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getAuthorByStoryId:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get author by story id",
+            error: error.message
+        });
+    }
+};
+
+export const getStoriesByAuthorId = async (req, res) => {
+    const { author_id } = req.query;
+
+    try {
+        const response = await services.getStoriesByAuthorIdService(author_id);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error("Error in getStoriesByAuthorId:", error);
+        return res.status(500).json({
+            err: -1,
+            msg: "Failed to get stories by author id",
+            error: error.message
+        });
+    }
+};
