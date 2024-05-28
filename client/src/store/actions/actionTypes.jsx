@@ -15,6 +15,9 @@ const actionTypes = {
     GET_STORY_BY_ID: 'GET_STORY_BY_ID',
     GET_CHAPTER_BY_STORY_ID: 'GET_CHAPTER_BY_STORY_ID',
 
+    GET_CHAPTER_DETAIL_BY_CHAPTER_ID: 'GET_CHAPTER_DETAIL_BY_CHAPTER_ID',
+
+
 }
 
 export default actionTypes

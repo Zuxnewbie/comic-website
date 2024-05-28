@@ -34,7 +34,7 @@ const MainContentComponent = ({ page, isNewPage, genre }) => {
           stories.map((item) => (
             <li key={item.story_id}>
               <div className="book_avatar">
-                <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`}>
+                <Link to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`}>
                   <img className="center" src={item.image} alt={item.name} />
                 </Link>
                 <div className="top-notice">
@@ -45,13 +45,13 @@ const MainContentComponent = ({ page, isNewPage, genre }) => {
               <div className="book_info">
                 <div className="book_name">
                   <h3 className="name">
-                    <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`} title={item.name}>
+                    <Link to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`} title={item.name}>
                       {item.name}
                     </Link>
                   </h3>
                 </div>
                 <div className="last_chapter">
-                  <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`}>
+                  <Link to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`}>
                     Chương {item.chapter_count}
                   </Link>
                 </div>

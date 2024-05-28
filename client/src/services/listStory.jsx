@@ -56,18 +56,30 @@ export const apiGetStoryByID = (storyID) =>
       });
   });
 
-
-  export const apiGetChapterByStoryID = (storyID) =>
-    new Promise((resolve, reject) => {
-      axiosConfig({
-        method: "get",
-        url: `/api/v1/chapter/chapter-list?story_id=${storyID}`,
+export const apiGetChapterByStoryID = (storyID) =>
+  new Promise((resolve, reject) => {
+    axiosConfig({
+      method: "get",
+      url: `/api/v1/chapter/chapter-list?story_id=${storyID}`,
+    })
+      .then((response) => {
+        resolve(response);
       })
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export const apiGetChapterDetail = (chapterID) =>
+  new Promise((resolve, reject) => {
+    axiosConfig({
+      method: "get",
+      url: `/api/v1/chapter/chapter-detail?chapter_id=${chapterID}`,
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });

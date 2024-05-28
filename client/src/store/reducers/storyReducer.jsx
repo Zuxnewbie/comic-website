@@ -4,7 +4,9 @@ const initState = {
     stories: [],
     msg: '',
     count: 0,
-    story: []
+    story: [],
+    chapters: [],
+    chapter_detail: []
 }
 
 const storyReducer = (state = initState, action) => {
@@ -20,12 +22,24 @@ const storyReducer = (state = initState, action) => {
                 count: action.count || 0
             }
         case actionTypes.GET_STORY_BY_ID:
-            console.log("Reducer received story:", action.story);
+            // console.log("Reducer received story:", action.story);
             return {
                 ...state,
                 story: action.story || null,
                 msg: action.msg || '',
             };
+        case actionTypes.GET_CHAPTER_BY_STORY_ID:
+            return {
+                ...state,
+                chapters: action.chapters || [],
+                msg: action.msg || '',
+            }
+        case actionTypes.GET_CHAPTER_DETAIL_BY_CHAPTER_ID:
+            return{
+                ...state,
+                chapter_detail: action.chapter_detail || null,
+                msg: action.msg || '',
+            }
         default:
             return state;
     }

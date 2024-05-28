@@ -310,22 +310,23 @@ export const getComicByIdService = (storyId) =>
 export const getChapterByComicIdService = (storyId) =>
   new Promise(async (resolve, reject) => {
     try {
-      const chapters = await db.Chapter.findAll({
-        where: {
-          story_id: storyId,
-        },
+      const response = await db.Chapter.findAll({
+        where: { story_id: storyId },
+        attributes: ["chapter_id", "story_id", "content", "createdAt"],
+        order: [['chapter_id', 'DESC']], // Sắp xếp theo chapter_id giảm dần
+        raw: true,
+        nest: true,
       });
-      // console.log("chapter list: ", chapters);
 
       resolve({
-        err: chapters.length ? 0 : 1,
-        msg: chapters.length ? "OK" : "Failed to get chapters by storyId",
-        chapters,
+        err: response.length ? 0 : 1,
+        msg: response.length ? "OK" : "Failed to get chapters",
+        response,
       });
     } catch (error) {
       reject({
         err: -1,
-        msg: "Failed at chapter controller =>>> ",
+        msg: "Failed at chapter controller",
         error,
       });
     }
@@ -334,16 +335,16 @@ export const getChapterByComicIdService = (storyId) =>
 export const getChapterDetailByIdService = (chapterId) =>
   new Promise(async (resolve, reject) => {
     try {
-      const chapter = await db.Chapter.findOne({
+      const response = await db.Chapter.findOne({
         where: {
           chapter_id: chapterId,
         },
       });
 
       resolve({
-        err: chapter ? 0 : 1,
-        msg: chapter ? "OK" : "Failed to get chapter detail by chapterId",
-        chapter,
+        err: response ? 0 : 1,
+        msg: response ? "OK" : "Failed to get chapter detail by chapterId",
+        response,
       });
     } catch (error) {
       reject({

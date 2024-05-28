@@ -2,7 +2,7 @@ export const path = {
     HOME: '/*',
     HOME__PAGE: ':page',
     LOGIN: 'login',
-    DETAIL_STORY__NAME__STORYID: 'detail/:name/:story_id',
+    STORY_STORY__NAME__STORYID: 'story/:name/:story_id',
     DETAIL_GENRE__NAME: 'genre/:name',
 
 

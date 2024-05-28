@@ -7,7 +7,6 @@ import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
-import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 // import { apiGetGenres } from "../../services/category";
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
