@@ -211,58 +211,121 @@ export const getAllComicLimitService = (offset) =>
     }
   });
 
-export const getAllComicByCategoryLimitService = (cate) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const query = `
-      SELECT DISTINCT 
-      story.story_id, 
-      story.name, 
-      story.image, 
-      (SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = story.story_id) AS chapter_count, 
-      (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id) AS lastUpdated,
-      CASE
-          WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' minutes ago')      
-          WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' hours ago')
-          WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' days ago')
-          ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' months ago')
-      END AS timeSinceLastUpdate,
-      categories.category_id AS categories_category_id, 
-      categories.name AS categories_name, 
-      categories.description AS categories_description
-  FROM 
-      Stories AS story 
-  INNER JOIN 
-      StoryCategories AS categories_StoryCategory 
-      ON story.story_id = categories_StoryCategory.story_id 
-  INNER JOIN 
-      Categories AS categories 
-      ON categories.category_id = categories_StoryCategory.category_id 
-  WHERE 
-      categories.name = :cate limit 5
+// export const getAllComicByCategoryLimitService = (cate) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const query = `
+//       SELECT DISTINCT 
+//       story.story_id, 
+//       story.name, 
+//       story.image, 
+//       (SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = story.story_id) AS chapter_count, 
+//       (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id) AS lastUpdated,
+//       CASE
+//           WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' minutes ago')      
+//           WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' hours ago')
+//           WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' days ago')
+//           ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' months ago')
+//       END AS timeSinceLastUpdate,
+//       categories.category_id AS categories_category_id, 
+//       categories.name AS categories_name, 
+//       categories.description AS categories_description
+//   FROM 
+//       Stories AS story 
+//   INNER JOIN 
+//       StoryCategories AS categories_StoryCategory 
+//       ON story.story_id = categories_StoryCategory.story_id 
+//   INNER JOIN 
+//       Categories AS categories 
+//       ON categories.category_id = categories_StoryCategory.category_id 
+//   WHERE 
+//       categories.name = :cate limit 5
 
-  `;
+//   `;
 
-      const result = await db.sequelize.query(query, {
-        replacements: { cate },
-        type: QueryTypes.SELECT,
-      });
-      const response = result.flat();
+//       const result = await db.sequelize.query(query, {
+//         replacements: { cate },
+//         type: QueryTypes.SELECT,
+//       });
+//       const response = result.flat();
 
-      resolve({
-        err: response ? 0 : 1,
-        msg: response ? "OK" : "Failed to get comic by category",
-        response,
-      });
-    } catch (error) {
-      reject({
-        err: -1,
-        msg: "Failed at story controller =>>> ",
-        error,
-      });
-    }
-  });
+//       resolve({
+//         err: response ? 0 : 1,
+//         msg: response ? "OK" : "Failed to get comic by category",
+//         response,
+//       });
+//     } catch (error) {
+//       reject({
+//         err: -1,
+//         msg: "Failed at story controller =>>> ",
+//         error,
+//       });
+//     }
+//   });
+// };
+
+
+export const getAllComicByCategoryLimitService = async (cate) => {
+  try {
+    const query = `
+      SELECT 
+        Story.id, 
+        Story.story_id, 
+        Story.name, 
+        Story.image, 
+        categories.id AS category_id, 
+        categories.category_id AS categories_category_id, 
+        categories.name AS categories_name, 
+        categories.description AS categories_description 
+      FROM 
+        Stories AS Story 
+      INNER JOIN 
+        ( 
+          StoryCategories AS StoryCategory 
+          INNER JOIN 
+          Categories AS categories 
+          ON 
+          categories.category_id = StoryCategory.category_id 
+        ) 
+      ON 
+        Story.story_id = StoryCategory.story_id 
+      WHERE 
+        categories.name = :cate;
+    `;
+
+    const result = await db.sequelize.query(query, {
+      replacements: { cate },
+      type: QueryTypes.SELECT,
+    });
+
+    const uniqueResults = result.reduce((acc, current) => {
+      const index = acc.findIndex(item => item.story_id === current.story_id);
+      if (index === -1) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+
+    // console.log("result", result);
+
+    const response = uniqueResults.length > 0 ? uniqueResults[0] : null;
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "Failed to get comic by category",
+      response: response,
+    };
+  } catch (error) {
+    return {
+      err: -1,
+      msg: "Failed at story controller =>>> ",
+      error,
+    };
+  }
 };
+
+
+
+
 
 export const getAllChapterService = () =>
   new Promise(async (resolve, reject) => {

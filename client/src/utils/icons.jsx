@@ -6,7 +6,7 @@ import { TbReportMoney } from 'react-icons/tb'
 import { RiCrop2Line, RiHeartFill, RiHeartLine } from 'react-icons/ri'
 import { MdOutlineHouseSiding } from 'react-icons/md'
 import { FiSearch } from 'react-icons/fi'
-
+import { FaUser } from "react-icons/fa";
 const icons = {
     AiOutlinePlusCircle,
     GrNext,
@@ -21,7 +21,8 @@ const icons = {
     RiHeartLine,
     BsBookmarkStarFill,
     GrLinkNext,
-    GrLinkPrevious
+    GrLinkPrevious,
+    FaUser 
 }
 
 export default icons

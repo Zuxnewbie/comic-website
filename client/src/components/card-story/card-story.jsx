@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import "./card-story.scss";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
-
+// import icons from "../../utils/icons";
 function CardStoryComponent({ story }) {
   if (!story) return null;
 
+  const formattedName = story.name ? formatVietnameseToString(story.name) : '';
+  // console.log("asdjasldsald", formattedName);
+  // console.log("fuckckckckkckckc", story?.firstChapter?.chapter_id);
   return (
     <>
       <ol className="breadcrumb">
@@ -14,7 +17,7 @@ function CardStoryComponent({ story }) {
           </a>
         </li>
         <li>
-          <Link to={`/detail/${formatVietnameseToString(story.name)}/${story.story_id}`}>
+          <Link to={`/detail/${formattedName}/${story.story_id}`}>
             <span>{story.name}</span>
           </Link>
         </li>
@@ -76,7 +79,7 @@ function CardStoryComponent({ story }) {
           <ul className="story-detail-menu">
             <li className="li01">
               <Link
-                to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}/chap/${story.firstChapter.chapter_id}`}
+                to={`/story/${formattedName}/${story?.story_id}/chap/${story?.firstChapter?.chapter_id}?number=1`}
                 className="button is-danger"
               >
                 <i className="fa fa-book"></i> Đọc từ đầu

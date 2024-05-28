@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Story.hasMany(models.Chapter, { foreignKey: "story_id", as: "chapter" });
       Story.belongsToMany(models.Category, {
-        through: "StoryCategories",
+        through: "StoryCategory",
         foreignKey: "story_id",
         as: "categories",
       });
@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Story.init(
     {
-      story_id:DataTypes.STRING,
+      story_id: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       name: DataTypes.STRING,
       image: DataTypes.STRING,
       love: DataTypes.STRING,
