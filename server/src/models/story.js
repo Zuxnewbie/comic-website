@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Story extends Model {
     /**
@@ -11,27 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Story.hasMany(models.Chapter, { foreignKey: 'story_id', as: 'story' });
-      Story.belongsToMany(models.Category, { through: 'StoryCategories', foreignKey: 'story_id', as: 'categories' });
-      Story.belongsTo(models.Author, { foreignKey: 'author_id', as: 'author' });
-      
+      Story.hasMany(models.Chapter, { foreignKey: "story_id", as: "story" });
+      Story.belongsToMany(models.Category, {
+        through: "StoryCategories",
+        foreignKey: "story_id",
+        as: "categories",
+      });
+      Story.belongsTo(models.Author, { foreignKey: "author_id", as: "author" });
     }
   }
-  Story.init({
-    story_id: {
-      type: DataTypes.STRING,
+  Story.init(
+    {
+      story_id:DataTypes.STRING,
+      name: DataTypes.STRING,
+      image: DataTypes.STRING,
+      love: DataTypes.STRING,
+      view: DataTypes.STRING,
+      status: DataTypes.STRING,
+      follow: DataTypes.STRING,
+      author_id: DataTypes.STRING,
+      description: DataTypes.TEXT("long"),
     },
-    name: DataTypes.STRING,
-    image: DataTypes.STRING,
-    love: DataTypes.STRING,
-    view: DataTypes.STRING,
-    status: DataTypes.STRING,
-    follow: DataTypes.STRING,
-    author_id: DataTypes.STRING,
-    description: DataTypes.TEXT('long')
-  }, {
-    sequelize,
-    modelName: 'Story',
-  });
+    {
+      sequelize,
+      modelName: "Story",
+    }
+  );
   return Story;
 };

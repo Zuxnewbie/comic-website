@@ -1,6 +1,6 @@
 import "./list-chapter.scss"
 
-export default function ListChapterComponent() {
+export default function ListChapterComponent({story}) {
   return (
     <div className="chapter-container">
     <h3>

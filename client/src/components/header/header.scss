@@ -233,10 +233,16 @@ header {
                   float: left;
                   text-align: center;
                   padding: 1rem;
-                  a {
+                  .asd {
                     cursor: pointer;
                     text-decoration: none !important;
                     color: inherit;
+                  }
+                  &:hover {
+                    background-color: #f29c57;
+                    transition: 0.3s;
+                    color: #ffffff;
+                    cursor: pointer;
                   }
                 }
               }

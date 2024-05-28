@@ -1,38 +1,37 @@
 import "./main-content.scss";
-import { apiGetAllStory } from "../../services/listStory";
-import { getStoriesLimit } from "../../store/actions/story";
-import { useEffect, useState } from "react";
+import { getStories, getStoriesLimit, getStoryByGenre } from "../../store/actions/story";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
-const MainContentComponent = ({ page, isNewPage }) => {
+const MainContentComponent = ({ page, isNewPage, genre }) => {
   const dispatch = useDispatch();
   const { stories } = useSelector((state) => state.story);
-  const [listStory, setListStory] = useState([]);
 
   useEffect(() => {
     let offset = page ? +page - 1 : 0;
-    if (isNewPage) {
+
+    if (genre) {
+      dispatch(getStoryByGenre(genre));
+    } else if (isNewPage) {
       dispatch(getStoriesLimit(offset));
     } else {
-      const fetchStory = async () => {
-        const response = await apiGetAllStory();
-        if (response?.data.err === 0) {
-          setListStory(response.data.response);
-        }
-      };
-      fetchStory();
+      dispatch(getStories());
     }
-  }, [page, isNewPage, dispatch]);
+    
+  }, [page, isNewPage, genre, dispatch]);
 
-  const displayedStories = isNewPage ? stories : listStory;
+  
+
+  // console.log("Genre:", genre);
+  // console.log("Stories:", stories);
 
   return (
     <div className="homepage-list">
       <ul className="homepage-list-item">
-        {displayedStories?.length > 0 &&
-          displayedStories.map((item) => (
+        {stories?.length > 0 ? (
+          stories.map((item) => (
             <li key={item.story_id}>
               <div className="book_avatar">
                 <Link to={`/detail/${formatVietnameseToString(item.name)}/${item.story_id}`}>
@@ -58,7 +57,10 @@ const MainContentComponent = ({ page, isNewPage }) => {
                 </div>
               </div>
             </li>
-          ))}
+          ))
+        ) : (
+          <p>No stories available.</p>
+        )}
       </ul>
     </div>
   );

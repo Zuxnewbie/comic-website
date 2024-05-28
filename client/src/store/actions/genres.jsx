@@ -4,7 +4,7 @@ import { apiGetGenres } from "../../services/genreDetail";
 export const getGenreDetails =  (query) => async (dispatch) =>  {
     try {
         const response = await apiGetGenres(query)
-        console.log("response from action: ", response);
+        // console.log("response from action: ", response);
 
         if (response?.data.err === 0) {
             dispatch({

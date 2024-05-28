@@ -5,7 +5,7 @@ import { FaSearch, FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, NavLink, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 // import { apiGetGenres } from "../../services/category";
@@ -187,14 +187,14 @@ const HeaderComponent = () => {
                         genres.map((item) => {
                           return (
                             <p key={item.category_id}>
-                              <NavLink
+                              <Link
                                 title="Action"
-                                to={`genre/${formatVietnameseToString(item.name)}`}
+                                to={`genre/${item.name}`}
                                 className={"asd"}
                               >
                                 {item.name}
                                 {item.category_id}
-                              </NavLink>
+                              </Link>
                             </p>
                           );
                         })}

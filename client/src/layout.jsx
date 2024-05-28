@@ -16,7 +16,7 @@ const Layout = () => {
             <Route path={path.HOME__PAGE} element={<NewPage />} />
           </Route>
           <Route path="detail/:name/:story_id" element={<StoryDetail />} />
-          <Route path="genre/:name" element={<GenresPage />} />
+          <Route path="genre/:genre" element={<GenresPage />} />
           
         </Route>
       </Routes>

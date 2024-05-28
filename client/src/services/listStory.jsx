@@ -27,3 +27,47 @@ export const apiGetAllStoryLimit = (page) =>
         reject(error);
       });
   });
+
+export const apiGetAllStoryByGenre = (cate) =>
+  new Promise((resolve, reject) => {
+    axiosConfig({
+      method: "get",
+      url: `/api/v1/genre/detail?cate=${cate}`,
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export const apiGetStoryByID = (storyID) =>
+  new Promise((resolve, reject) => {
+    axiosConfig({
+      method: "get",
+      url: `/api/v1/story/detail-test/?story_id=${storyID}`,
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+
+  export const apiGetChapterByStoryID = (storyID) =>
+    new Promise((resolve, reject) => {
+      axiosConfig({
+        method: "get",
+        url: `/api/v1/chapter/chapter-list?story_id=${storyID}`,
+      })
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  

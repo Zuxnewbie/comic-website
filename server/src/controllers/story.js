@@ -41,6 +41,7 @@ export const getAllComicLimit = async (req, res) => {
     const { page } = req.query
     try {
         const response = await services.getAllComicLimitService(page)
+        console.log("papapgappga", response);
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
@@ -68,6 +69,7 @@ export const getComicByCategory = async (req, res) => {
 
     try {
         const response = await services.getAllComicByCategoryLimitService(cate);
+        console.log("res pons  se", response);
         return res.status(200).json(response);
     } catch (error) {
         console.error("Error in getComicByCategory:", error); // Log the error for debugging

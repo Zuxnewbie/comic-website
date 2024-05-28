@@ -1,26 +1,19 @@
-
-
-// import PaginateComponent from "../../components/paginate/paginate";
-import PopupComponent from "../../components/popup/popup";
+// pages/genres/genres.jsx
+import { useParams } from "react-router-dom";
 import SearchCategory from "../../components/search/search";
-import { useSearchParams } from "react-router-dom";
 import MainContentComponent from "../../components/main-content/main-content";
+
 const GenresPage = () => {
-  const [params] = useSearchParams();
-  const page = params.get("page");
-  console.log("params ==>", page);
+  const { genre } = useParams();
 
   return (
     <>
       <SearchCategory />
       <div className="home-hero">
         <div className="main-homepage">
-          {/* <MainContentComponent page={page} /> */}
-          <MainContentComponent/> 
+          <MainContentComponent genre={genre} />
         </div>
       </div>
-      {/* <PaginateComponent/> */}
-      <PopupComponent />
     </>
   );
 };
