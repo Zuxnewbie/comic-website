@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "./card-story.scss";
+import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
 function CardStoryComponent({ story }) {
   if (!story) return null;
@@ -12,9 +14,9 @@ function CardStoryComponent({ story }) {
           </a>
         </li>
         <li>
-          <a href={`/detail/${story.name}/${story.story_id}`}>
+          <Link to={`/detail/${formatVietnameseToString(story.name)}/${story.story_id}`}>
             <span>{story.name}</span>
-          </a>
+          </Link>
         </li>
       </ol>
 
@@ -45,13 +47,13 @@ function CardStoryComponent({ story }) {
                 <p className="name col">
                   <i className="fa fa-thumbs-up"></i> Lượt thích
                 </p>
-                <p className="number-like">{story.likes}</p>
+                <p className="number-like">{story.love}</p>
               </li>
               <li className="row">
                 <p className="name col">
                   <i className="fa fa-heart"></i> Lượt theo dõi
                 </p>
-                <p className="">{story.followers}</p>
+                <p className="">{story.follow}</p>
               </li>
               <li className="row">
                 <p className="name col">
@@ -73,12 +75,12 @@ function CardStoryComponent({ story }) {
           </ul>
           <ul className="story-detail-menu">
             <li className="li01">
-              <a
-                href={`/detail/${story.name}/${story.story_id}/chap-1`}
+              <Link
+                to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}/chap/${story.firstChapter.chapter_id}`}
                 className="button is-danger"
               >
                 <i className="fa fa-book"></i> Đọc từ đầu
-              </a>
+              </Link>
             </li>
             <li className="li02">
               <a
@@ -98,13 +100,13 @@ function CardStoryComponent({ story }) {
               </a>
             </li>
             <li className="li04">
-              <a
-                href={`/detail/${story.name}/${story.story_id}/chap-${story.latest_chapter}`}
+              <Link
+               to={"/"}
                 className="button is-info is-rounded"
               >
                 <i className="fa fa-location-arrow" aria-hidden="true"></i> Đọc
                 tiếp
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

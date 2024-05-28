@@ -70,6 +70,17 @@ export const getCardCarouselService = () =>
             ),
             "chapter_count",
           ],
+          [
+            Sequelize.literal(`
+                    CASE
+                        WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' minutes ago')
+                        WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' hours ago')
+                        WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' days ago')
+                        ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' months ago')
+                    END
+                `),
+            "timeSinceLastUpdate",
+          ],
         ],
         limit: 12,
         order: [["view", "DESC"]],
@@ -283,29 +294,49 @@ export const getAllChapterService = () =>
     }
   });
 
-export const getComicByIdService = (storyId) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await db.Story.findOne({
-        where: {
-          story_id: storyId || 0,
-        },
-      });
-      console.log("storyId0000", storyId);
-
-      resolve({
-        err: response ? 0 : 1,
-        msg: response ? "OK" : "Failed to get comic by id",
-        response, // Resolve with 'story' instead of 'response'
-      });
-    } catch (error) {
-      reject({
-        err: -1,
-        msg: "Failed at story controller =>>> ",
-        error,
-      });
-    }
-  });
+  export const getComicByIdService = (storyId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        // Fetch story information
+        const storyResponse = await db.Story.findOne({
+          where: {
+            story_id: storyId || 0,
+          },
+        });
+        
+        // Check if story exists
+        if (!storyResponse) {
+          resolve({
+            err: 1,
+            msg: "Story not found",
+            response: null,
+          });
+          return;
+        }
+  
+        // Fetch details of the first chapter using the getChapterByComicIdService function
+        const chapterResponse = await getChapterByComicIdService(storyId);
+  
+        // Combine story and chapter information into one array
+        const response = {
+          ...storyResponse.toJSON(),
+          firstChapter: chapterResponse.response.length > 0 ? chapterResponse.response[0] : null,
+        };
+  
+        resolve({
+          err: 0,
+          msg: "OK",
+          response: response, // Return response as a single array
+        });
+      } catch (error) {
+        reject({
+          err: -1,
+          msg: "Failed at story controller",
+          error,
+        });
+      }
+    });
+  
 
 export const getChapterByComicIdService = (storyId) =>
   new Promise(async (resolve, reject) => {
@@ -313,7 +344,7 @@ export const getChapterByComicIdService = (storyId) =>
       const response = await db.Chapter.findAll({
         where: { story_id: storyId },
         attributes: ["chapter_id", "story_id", "content", "createdAt"],
-        order: [['chapter_id', 'DESC']], // Sắp xếp theo chapter_id giảm dần
+        order: [["chapter_id", "DESC"]], // Sắp xếp theo chapter_id giảm dần
         raw: true,
         nest: true,
       });

@@ -23,11 +23,11 @@ const ChapterContent = ({chapterDetail, chapterNumber}) => {
         </div>
         <div className="chapternav">
           <div className="chapter-control"> 
-            <a rel="prev" className="button prevchap" href="/" title="Chapter 1">
+            <a className="button prevchap" href="/" title="Chapter 1">
               <i className="fa fa-arrow-left"></i>
               <span className="prev">Chap trước</span>
             </a>
-            <a rel="next" className="button nextchap" href="/" title="Chapter 3">
+            <a className="button nextchap" href="/" title="Chapter 3">
               <span className="next">Chap sau</span>
               <i className="fa fa-arrow-right"></i>
             </a>

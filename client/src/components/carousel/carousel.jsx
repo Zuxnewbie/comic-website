@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { apiGetCarousel } from '../../services/carousel'
+import { Link } from "react-router-dom";
+import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
 /* eslint-disable react/prop-types */
 
@@ -110,33 +112,33 @@ const OwlCarouselComponent = () => {
             return(
               <div className="card" key={item.story_id}>
                 <div className="book_avatar">
-                  <a href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893">
+                  <Link to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`}>
                     <img
                       className="center"
                       src={item.image}
                       alt={item.name}
                     />
-                  </a>
+                  </Link>
                   <div className="top-notice">
-                    <span className="time-ago">25 Phút Trước</span>
+                    <span className="time-ago">{item.timeSinceLastUpdate}</span>
                     <span className="type-label hot">Hot</span>
                   </div>
                 </div>
                 <div className="book_info">
                   <div className="book_name">
                     <h3 className="name">
-                      <a
+                      <Link
                         title="Tinh Võ Thần Quyết"
-                        href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893"
+                        to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </h3>
                   </div>
                   <div className="last_chapter">
-                    <a href="https://truyenqqviet.com/truyen-tranh/tinh-vo-than-quyet-1893-chap-669.html">
+                    <Link to={`/story/${formatVietnameseToString(item.name)}/${item.story_id}`}>
                       Chương {item.chapter_count}
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
