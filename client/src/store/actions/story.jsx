@@ -132,7 +132,7 @@ export const getChapterByStoryID = (story_id) => async (dispatch) => {
   export const getChapterDetail = (chapter_id) => async (dispatch) => {
     try {
       const response = await apiGetChapterDetail(chapter_id);
-      console.log("API getChapterDetail response:", response);
+      // console.log("API getChapterDetail response:", response);
   
       if (response?.data.err === 0) {
         dispatch({
@@ -149,6 +149,30 @@ export const getChapterByStoryID = (story_id) => async (dispatch) => {
       dispatch({
         type: actionTypes.GET_CHAPTER_DETAIL_BY_CHAPTER_ID,
         chapter_detail: null,
+      });
+    }
+  };
+
+  export const getStoryByStatusFull = () => async (dispatch) => {
+    try {
+      const response = await apiGetChapterDetail();
+      console.log("API getStoryByStatusFull response:", response);
+  
+      if (response?.data.err === 0) {
+        dispatch({
+          type: actionTypes.GET_STORY_STATUS_FULL,
+          stories: response.data.response,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.GET_STORY_STATUS_FULL,
+          msg: response.data.msg,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_STORY_STATUS_FULL,
+        stories: null,
       });
     }
   };

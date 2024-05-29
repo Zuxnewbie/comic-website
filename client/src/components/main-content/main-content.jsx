@@ -24,7 +24,7 @@ const MainContentComponent = ({ page, isNewPage, genre }) => {
 
   
 
-  // console.log("Genre:", genre);
+  console.log("Genre:", genre);
   // console.log("Stories:", stories);
 
   return (

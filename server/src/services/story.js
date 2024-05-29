@@ -215,30 +215,30 @@ export const getAllComicLimitService = (offset) =>
 //   return new Promise(async (resolve, reject) => {
 //     try {
 //       const query = `
-//       SELECT DISTINCT 
-//       story.story_id, 
-//       story.name, 
-//       story.image, 
-//       (SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = story.story_id) AS chapter_count, 
+//       SELECT DISTINCT
+//       story.story_id,
+//       story.name,
+//       story.image,
+//       (SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = story.story_id) AS chapter_count,
 //       (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id) AS lastUpdated,
 //       CASE
-//           WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' minutes ago')      
+//           WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' minutes ago')
 //           WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' hours ago')
 //           WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' days ago')
 //           ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = story.story_id), NOW()), ' months ago')
 //       END AS timeSinceLastUpdate,
-//       categories.category_id AS categories_category_id, 
-//       categories.name AS categories_name, 
+//       categories.category_id AS categories_category_id,
+//       categories.name AS categories_name,
 //       categories.description AS categories_description
-//   FROM 
-//       Stories AS story 
-//   INNER JOIN 
-//       StoryCategories AS categories_StoryCategory 
-//       ON story.story_id = categories_StoryCategory.story_id 
-//   INNER JOIN 
-//       Categories AS categories 
-//       ON categories.category_id = categories_StoryCategory.category_id 
-//   WHERE 
+//   FROM
+//       Stories AS story
+//   INNER JOIN
+//       StoryCategories AS categories_StoryCategory
+//       ON story.story_id = categories_StoryCategory.story_id
+//   INNER JOIN
+//       Categories AS categories
+//       ON categories.category_id = categories_StoryCategory.category_id
+//   WHERE
 //       categories.name = :cate limit 5
 
 //   `;
@@ -264,7 +264,6 @@ export const getAllComicLimitService = (offset) =>
 //   });
 // };
 
-
 export const getAllComicByCategoryLimitService = async (cate) => {
   try {
     const query = `
@@ -276,7 +275,15 @@ export const getAllComicByCategoryLimitService = async (cate) => {
         categories.id AS category_id, 
         categories.category_id AS categories_category_id, 
         categories.name AS categories_name, 
-        categories.description AS categories_description 
+        categories.description AS categories_description,
+        (SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = Story.story_id) AS chapter_count,
+        (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id) AS lastUpdated,
+        CASE
+          WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' minutes ago')
+          WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' hours ago')
+          WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' days ago')
+          ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' months ago')
+        END AS timeSinceLastUpdate
       FROM 
         Stories AS Story 
       INNER JOIN 
@@ -299,14 +306,12 @@ export const getAllComicByCategoryLimitService = async (cate) => {
     });
 
     const uniqueResults = result.reduce((acc, current) => {
-      const index = acc.findIndex(item => item.story_id === current.story_id);
+      const index = acc.findIndex((item) => item.story_id === current.story_id);
       if (index === -1) {
         acc.push(current);
       }
       return acc;
     }, []);
-
-    // console.log("result", result);
 
     const response = uniqueResults.length > 0 ? uniqueResults[0] : null;
     return {
@@ -322,10 +327,6 @@ export const getAllComicByCategoryLimitService = async (cate) => {
     };
   }
 };
-
-
-
-
 
 export const getAllChapterService = () =>
   new Promise(async (resolve, reject) => {
@@ -357,49 +358,51 @@ export const getAllChapterService = () =>
     }
   });
 
-  export const getComicByIdService = (storyId) =>
-    new Promise(async (resolve, reject) => {
-      try {
-        // Fetch story information
-        const storyResponse = await db.Story.findOne({
-          where: {
-            story_id: storyId || 0,
-          },
-        });
-        
-        // Check if story exists
-        if (!storyResponse) {
-          resolve({
-            err: 1,
-            msg: "Story not found",
-            response: null,
-          });
-          return;
-        }
-  
-        // Fetch details of the first chapter using the getChapterByComicIdService function
-        const chapterResponse = await getChapterByComicIdService(storyId);
-  
-        // Combine story and chapter information into one array
-        const response = {
-          ...storyResponse.toJSON(),
-          firstChapter: chapterResponse.response.length > 0 ? chapterResponse.response[0] : null,
-        };
-  
+export const getComicByIdService = (storyId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      // Fetch story information
+      const storyResponse = await db.Story.findOne({
+        where: {
+          story_id: storyId || 0,
+        },
+      });
+
+      // Check if story exists
+      if (!storyResponse) {
         resolve({
-          err: 0,
-          msg: "OK",
-          response: response, // Return response as a single array
+          err: 1,
+          msg: "Story not found",
+          response: null,
         });
-      } catch (error) {
-        reject({
-          err: -1,
-          msg: "Failed at story controller",
-          error,
-        });
+        return;
       }
-    });
-  
+
+      // Fetch details of the first chapter using the getChapterByComicIdService function
+      const chapterResponse = await getChapterByComicIdService(storyId);
+
+      // Combine story and chapter information into one array
+      const response = {
+        ...storyResponse.toJSON(),
+        firstChapter:
+          chapterResponse.response.length > 0
+            ? chapterResponse.response[0]
+            : null,
+      };
+
+      resolve({
+        err: 0,
+        msg: "OK",
+        response: response, // Return response as a single array
+      });
+    } catch (error) {
+      reject({
+        err: -1,
+        msg: "Failed at story controller",
+        error,
+      });
+    }
+  });
 
 export const getChapterByComicIdService = (storyId) =>
   new Promise(async (resolve, reject) => {
@@ -570,3 +573,5 @@ export const getStoriesByAuthorIdService = (authorId) =>
       });
     }
   });
+
+  

@@ -1,7 +1,11 @@
+import { Link } from "react-router-dom";
 import "./chapter-content.scss";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const ChapterContent = ({chapterDetail, chapterNumber}) => {
+
+  console.log("áđâsd", typeof(chapterNumber));
+
   return (
     <>
       <div className="chapter-detail-container">
@@ -23,14 +27,14 @@ const ChapterContent = ({chapterDetail, chapterNumber}) => {
         </div>
         <div className="chapternav">
           <div className="chapter-control"> 
-            <a className="button prevchap" href="/" title="Chapter 1">
+            <Link className="button prevchap" to={"/"}  disabled>
               <i className="fa fa-arrow-left"></i>
               <span className="prev">Chap trước</span>
-            </a>
-            <a className="button nextchap" href="/" title="Chapter 3">
+            </Link>
+            <Link className="button nextchap" to={"/"} >
               <span className="next">Chap sau</span>
               <i className="fa fa-arrow-right"></i>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

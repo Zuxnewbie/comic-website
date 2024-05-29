@@ -8,7 +8,7 @@ const GenresPage = () => {
 
   return (
     <>
-      <SearchCategory />
+      <SearchCategory genre={genre}/>
       <div className="home-hero">
         <div className="main-homepage">
           <MainContentComponent genre={genre} />

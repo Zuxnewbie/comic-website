@@ -192,7 +192,7 @@ const HeaderComponent = () => {
                                 className={"asd"}
                               >
                                 {item.name}
-                                {item.category_id}
+                                {/* {item.category_id} */}
                               </Link>
                             </p>
                           );
