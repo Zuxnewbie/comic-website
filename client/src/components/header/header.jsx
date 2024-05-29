@@ -1,12 +1,13 @@
 import "./header.scss";
 import { useEffect, useState, useRef } from "react";
 import { TiLightbulb } from "react-icons/ti";
-import { FaSearch, FaBars } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import PopupLoginComponent from "../popup/popup";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
+import TopSearchComponent from "../top-search/top-search";
 // import { apiGetGenres } from "../../services/category";
 // import { useNavigate } from "react-router-dom";
 // import validate from "../../utils/validate";
@@ -104,36 +105,10 @@ const HeaderComponent = () => {
                   <TiLightbulb />
                 </button>
               </div>
-              <div className="top_search">
-                <input
-                  className="search"
-                  id="search_input"
-                  placeholder="Bạn muốn tìm truyện gì"
-                />
-                <button className="search-button">
-                  <FaSearch />
-                </button>
-                <div className="search_result">
-                  <ul>
-                    <li>
-                      <a href="/">
-                        <div className="search-content">
-                          <div className="search_avatar">
-                            <img
-                              src="https://i.truyenvua.com/ebook/80x105/diem-de_1552231811.jpg?gt=hdfgdfg&amp;mobile=2"
-                              alt="img"
-                            />
-                          </div>
-                          <div className="search_info">
-                            <p className="name">Diêm Đế</p>
-                            <p>Chương 384</p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+
+                {/* top search */}
+                <TopSearchComponent />
+
             </div>
             <div className="right">
               <div className="button-user">
