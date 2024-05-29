@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
 const ListChapterComponent = ({ story }) => {
-  const chapters = useSelector((state) => state.story.chapters);
-  
+  const chapters = useSelector((state) => state?.story?.chapters);
+  // console.log("chapters", chapters);
+  // console.log("totalChapters", chapters.totalChapters);
   if (!story) return null;
 
   const formatDate = (dateString) => {
@@ -20,14 +21,14 @@ const ListChapterComponent = ({ story }) => {
         Danh sách chương
       </h3>
       <div className="list-chapter">
-        {chapters.map((chapter, index) => (
+        {chapters?.chapters?.map((chapter, index) => (
           <div className="chapter-item" key={chapter.chapter_id}>
             <div className="chapter-content">
               <div className="name-chap">
                 <Link
-                  to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}/chap/${chapter.chapter_id}?number=${chapters.length - index}`}
+                  to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}/chap/${chapter.chapter_id}?number=${chapters.chapters.length - index}`}
                 >
-                  Chương {chapters.length - index}
+                  Chương {chapters.chapters.length - index}
                 </Link>
               </div>
               <div className="time-chap">{formatDate(chapter.createdAt)}</div>

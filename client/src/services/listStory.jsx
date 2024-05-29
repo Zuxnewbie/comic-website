@@ -1,5 +1,19 @@
 import axiosConfig from "../axiosConfig";
 
+export const apiGetAllStoryForSearch = () =>
+  new Promise((resolve, reject) => {
+    axiosConfig({
+      method: "get",
+      url: "/api/v1/story/all-story",
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
 export const apiGetAllStory = () =>
   new Promise((resolve, reject) => {
     axiosConfig({

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getStories } from "../../store/actions/story";
+import { getAllStoryForSearch } from "../../store/actions/story";
 import "./top-search.scss";
 import icons from "../../utils/icons";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
@@ -12,6 +12,7 @@ const { FaSearch} = icons;
   const dispatch = useDispatch();
   const { stories } = useSelector((state) => state.story);
   
+  // console.log("stories from top-search",stories );
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -30,7 +31,7 @@ const { FaSearch} = icons;
   }, [searchTerm, stories]);
 
   useEffect(() => {
-    dispatch(getStories());
+    dispatch(getAllStoryForSearch());
   }, [dispatch]);
 
   const handleChange = (value) => {
@@ -41,6 +42,7 @@ const { FaSearch} = icons;
     setShowResults(false);
     setSearchTerm("");
   };
+
 
   return (
     <div className="top_search">

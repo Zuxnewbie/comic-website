@@ -6,7 +6,35 @@ import {
   apiGetChapterByStoryID,
   apiGetChapterDetail,
   apiGetStoryByID,
+  apiGetAllStoryForSearch
 } from "../../services/listStory";
+
+// get all for something
+export const getAllStoryForSearch = () => async (dispatch) => {
+  try {
+    const response = await apiGetAllStoryForSearch();
+    // console.log("response from search: ", response);
+
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_ALL_STORY_FOR_SEARCH,
+        stories: response.data.response,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_ALL_STORY_FOR_SEARCH,
+        msg: response.data.msg,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ALL_STORY_FOR_SEARCH,
+      stories: null,
+    });
+  }
+};
+
+
 export const getStories = () => async (dispatch) => {
   try {
     const response = await apiGetAllStory();
@@ -107,7 +135,7 @@ export const getStoryByID = (story_id) => async (dispatch) => {
 export const getChapterByStoryID = (story_id) => async (dispatch) => {
     try {
       const response = await apiGetChapterByStoryID(story_id);
-      // console.log("API response:", response);
+      // console.log("API response:", response.data.response.chapters);
   
       if (response?.data.err === 0) {
         dispatch({

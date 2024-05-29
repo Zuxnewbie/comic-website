@@ -3,6 +3,9 @@ import * as controllers from '../controllers/story'
 
 const router = express.Router()
 
+const all = router.get("/all-story", controllers.getAllStory)
+
+
 const carousel = router.get("/", controllers.getCardCarousel)
 const allStory = router.get("/all", controllers.getAllComic)
 const allChap = router.get("/getallchap", controllers.getAllChap)
@@ -18,4 +21,4 @@ const nameAuthor = router.get("/name-author", controllers.getAuthorByStoryId);
 const storyOfAuthor = router.get("/story-of-author", controllers.getStoriesByAuthorId);
 
 
-export {carousel, allStory, allChap, banner, storyLimit, categoryDetail, storyDetail, chapterList, chapterDetail, notfull, full, nameAuthor, storyOfAuthor}
+export {all,carousel, allStory, allChap, banner, storyLimit, categoryDetail, storyDetail, chapterList, chapterDetail, notfull, full, nameAuthor, storyOfAuthor}

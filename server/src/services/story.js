@@ -2,6 +2,57 @@ import db from "../models/index";
 import { Sequelize } from "sequelize";
 import QueryTypes from "sequelize";
 
+export const getAllStoryService = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Story.findAll({
+        attributes: [
+          "story_id",
+          "name",
+          "image",
+          [
+            Sequelize.literal(
+              "(SELECT COUNT(*) FROM Chapters WHERE Chapters.story_id = Story.story_id)"
+            ),
+            "chapter_count",
+          ],
+          [
+            Sequelize.literal(`
+                    (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id)
+                `),
+            "lastUpdated",
+          ],
+          [
+            Sequelize.literal(`
+                    CASE
+                        WHEN TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' minutes ago')
+                        WHEN TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' hours ago')
+                        WHEN TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' days ago')
+                        ELSE CONCAT(TIMESTAMPDIFF(MONTH, (SELECT MAX(updatedAt) FROM Chapters WHERE Chapters.story_id = Story.story_id), NOW()), ' months ago')
+                    END
+                `),
+            "timeSinceLastUpdate",
+          ],
+        ],
+        order: [[Sequelize.literal("lastUpdated"), "DESC"]],
+        raw: true,
+        nest: true,
+      });
+
+      resolve({
+        err: response.length ? 0 : 1,
+        msg: response.length ? "OK" : "Failed to get all comic",
+        response,
+      });
+    } catch (error) {
+      reject({
+        err: -1,
+        msg: "Failed at story controller =>>> ",
+        error,
+      });
+    }
+  });
+
 //get 5 banner
 export const getBannerService = () =>
   new Promise(async (resolve, reject) => {
@@ -404,30 +455,40 @@ export const getComicByIdService = (storyId) =>
     }
   });
 
-export const getChapterByComicIdService = (storyId) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await db.Chapter.findAll({
-        where: { story_id: storyId },
-        attributes: ["chapter_id", "story_id", "content", "createdAt"],
-        order: [["chapter_id", "DESC"]], // Sắp xếp theo chapter_id giảm dần
-        raw: true,
-        nest: true,
-      });
-
-      resolve({
-        err: response.length ? 0 : 1,
-        msg: response.length ? "OK" : "Failed to get chapters",
-        response,
-      });
-    } catch (error) {
-      reject({
-        err: -1,
-        msg: "Failed at chapter controller",
-        error,
-      });
-    }
-  });
+  export const getChapterByComicIdService = (storyId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        // Find all chapters for the story
+        const chapters = await db.Chapter.findAll({
+          where: { story_id: storyId },
+          attributes: ["chapter_id", "story_id", "content", "createdAt"],
+          order: [["chapter_id", "ASC"]], // Sort by chapter_id in descending order
+          raw: true,
+          nest: true,
+        });
+  
+        // Count the total number of chapters for the story
+        const totalChapters = await db.Chapter.count({
+          where: { story_id: storyId },
+        });
+  
+        resolve({
+          err: chapters.length ? 0 : 1,
+          msg: chapters.length ? "OK" : "Failed to get chapters",
+          response: {
+            chapters,
+            totalChapters,
+          },
+        });
+      } catch (error) {
+        reject({
+          err: -1,
+          msg: "Failed at chapter controller",
+          error,
+        });
+      }
+    });
+  
 
 export const getChapterDetailByIdService = (chapterId) =>
   new Promise(async (resolve, reject) => {
