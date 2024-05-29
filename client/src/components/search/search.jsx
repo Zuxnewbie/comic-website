@@ -23,11 +23,14 @@ const SearchCategory = ({ genre }) => {
 
   const currentGenre = genres?.find((item) => item.name === genre);
 
+
   const handleGenreChange = (event) => {
     const newGenre = event.target.value;
     setSelectedGenre(newGenre);
     navigate(`/genre/${newGenre}`);
   };
+
+  console.log("current Gen re", currentGenre);
 
   return (
     <div className="search-container">
@@ -40,6 +43,10 @@ const SearchCategory = ({ genre }) => {
             </a>
           </p>
         </h1>
+      </div>
+
+      <div className="tags_detail">
+        {currentGenre && <b>{currentGenre.description}</b>}
       </div>
 
       <div className="story-list box">
@@ -105,6 +112,12 @@ const SearchCategory = ({ genre }) => {
                     </option>
                     <option value="https://truyenqqviet.com/the-loai/anime-62.html">
                       Lượt xem tăng dần
+                    </option>
+                    <option value="https://truyenqqviet.com/the-loai/anime-62.html">
+                      Ngày cập nhật giảm dần
+                    </option>
+                    <option value="https://truyenqqviet.com/the-loai/anime-62.html">
+                      Ngày cập nhật tăng dần
                     </option>
                   </select>
                 </div>

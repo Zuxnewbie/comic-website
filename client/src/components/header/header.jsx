@@ -235,11 +235,6 @@ const HeaderComponent = () => {
                         </a>
                       </p>
                       <p>
-                        <a title="Mới Cập Nhật" href="/">
-                          Mới Cập Nhật
-                        </a>
-                      </p>
-                      <p>
                         <a title="Truyện Mới" href="/">
                           Truyện Mới
                         </a>
@@ -257,16 +252,6 @@ const HeaderComponent = () => {
                     </div>
                   </div>
                 </div>
-              </li>
-              <li className="middle_menu_item">
-                <a className="middle_menu_item_title" href="/">
-                  Con Gái
-                </a>
-              </li>
-              <li className="middle_menu_item">
-                <a className="middle_menu_item_title" href="/">
-                  Con Trai
-                </a>
               </li>
               <li className="middle_menu_item">
                 <a className="middle_menu_item_title" href="/">

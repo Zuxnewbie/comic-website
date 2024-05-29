@@ -7,7 +7,7 @@ export const getGenreService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Category.findAll({
             raw: true,
-            attributes: ['id', 'category_id', 'name']
+            attributes: ['id', 'category_id', 'name', 'description']
         })
         resolve({
             err: response ? 0 : 1,

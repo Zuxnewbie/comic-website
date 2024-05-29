@@ -1,6 +1,8 @@
 import authRouter from "./auth.js";
 import insertRouter from "./insert";
 import categoryRouter from "./category.js";
+import sort from "./sort";
+import rank from "./rank";
 import { carousel, allStory, allChap, banner, storyLimit, categoryDetail, storyDetail, chapterList, chapterDetail,notfull, full, nameAuthor, storyOfAuthor}  from "./story.js";
 const initRoutes = (app) => {
   app.use("/api/v1/auth", authRouter);
@@ -19,7 +21,11 @@ const initRoutes = (app) => {
   app.use("/api/v1/story", full);
   app.use("/api/v1/story", nameAuthor);
   app.use("/api/v1/story", storyOfAuthor);
-  
+
+
+  app.use("/api/v1/story-sort", sort);
+  app.use("/api/v1/story-rank", rank);
+
   
   return app.use("/", (req, res) => {
     res.send("server on...");

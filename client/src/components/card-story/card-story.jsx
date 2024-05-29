@@ -102,15 +102,6 @@ function CardStoryComponent({ story }) {
                 <i className="fa fa-thumbs-up"></i> Thích
               </a>
             </li>
-            <li className="li04">
-              <Link
-               to={"/"}
-                className="button is-info is-rounded"
-              >
-                <i className="fa fa-location-arrow" aria-hidden="true"></i> Đọc
-                tiếp
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
