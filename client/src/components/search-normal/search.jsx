@@ -30,7 +30,7 @@ const SearchCategory = ({ genre }) => {
     navigate(`/genre/${newGenre}`);
   };
 
-  console.log("current Gen re", currentGenre);
+  // console.log("current Gen re", currentGenre);
 
   return (
     <div className="search-container">

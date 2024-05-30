@@ -2,7 +2,7 @@ import "./new.scss";
 // import ContentHomeComponent from "../../components/content-home/content-home";
 import PaginateComponent from "../../components/paginate/paginate";
 import PopupComponent from "../../components/popup/popup";
-import SearchCategory from "../../components/search/search";
+import SearchCategory from "../../components/search-normal/search";
 import { useSearchParams } from "react-router-dom";
 import MainContentComponent from "../../components/main-content/main-content";
 const NewPage = () => {

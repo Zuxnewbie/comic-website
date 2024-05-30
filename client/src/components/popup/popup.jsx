@@ -44,15 +44,13 @@ const PopupLoginComponent = ({
     isLoggedIn && navigate("/");
   }, [isLoggedIn, navigate]);
 
-
-
   useEffect(() => {
-    msg && Swal.fire({
-      title: "Oops !",
-      text: msg,
-      icon: "error",
-      
-    });
+    msg &&
+      Swal.fire({
+        title: "Oops !",
+        text: msg,
+        icon: "error",
+      });
   }, [msg, update]);
 
   const handleEmailChange = (e) => {
