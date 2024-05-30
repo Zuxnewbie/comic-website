@@ -3,7 +3,7 @@ import "./chapter-content.scss";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 
-const ChapterContent = ({ chapterDetail, chapterNumber, totalChapters, chapters }) => {
+const ChapterContent = ({ chapterDetail, chapterNumber, chapters }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [nextChapterId, setNextChapterId] = useState(null);

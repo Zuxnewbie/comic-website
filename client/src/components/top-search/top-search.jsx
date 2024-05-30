@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllStoryForSearch } from "../../store/actions/story";
@@ -7,15 +7,15 @@ import icons from "../../utils/icons";
 import { formatVietnameseToString } from "../../utils/common/formatVietnameseToString";
 
 const TopSearchComponent = () => {
-const { FaSearch} = icons;
-
+  const { FaSearch } = icons;
   const dispatch = useDispatch();
   const { stories } = useSelector((state) => state.story);
-  
-  // console.log("stories from top-search",stories );
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+
+  const searchContainerRef = useRef(null);
 
   useEffect(() => {
     if (searchTerm) {
@@ -43,9 +43,24 @@ const { FaSearch} = icons;
     setSearchTerm("");
   };
 
+  const handleClickOutside = (event) => {
+    if (
+      searchContainerRef.current &&
+      !searchContainerRef.current.contains(event.target)
+    ) {
+      setShowResults(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   return (
-    <div className="top_search">
+    <div className="top_search" ref={searchContainerRef}>
       <input
         type="text"
         className="search"
@@ -54,15 +69,18 @@ const { FaSearch} = icons;
         onChange={(e) => handleChange(e.target.value)}
       />
       <button className="search-button">
-      <FaSearch/>
+        <FaSearch />
       </button>
+
       {showResults && (
         <div className="search_result open">
           <ul>
             {searchResults.length > 0 ? (
               searchResults.map((story) => (
                 <li key={story.story_id} onClick={handleResultClick}>
-                  <Link to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}`}>
+                  <Link
+                    to={`/story/${formatVietnameseToString(story.name)}/${story.story_id}`}
+                  >
                     <div className="search-content">
                       <div className="search_avatar">
                         <img src={story.image} alt={story.name} />
@@ -83,6 +101,8 @@ const { FaSearch} = icons;
         </div>
       )}
     </div>
+
+    
   );
 };
 
