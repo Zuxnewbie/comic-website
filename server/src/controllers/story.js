@@ -62,6 +62,22 @@ export const getAllComicLimit = async (req, res) => {
     }
 }
 
+export const getComicByCategory = async (req, res) => {
+    const { cate, page = 1 } = req.query;
+  
+    try {
+      const response = await services.getAllComicByCategoryLimitService(cate, page);
+      console.log("res pons se", response);
+      return res.status(200).json(response);
+    } catch (error) {
+      console.error("Error in getComicByCategory:", error); // Log the error for debugging
+      return res.status(500).json({
+        err: -1,
+        msg: "Failed to get comics by category",
+        error: error.message // Send the error message in the response
+      });
+    }
+  };
 
 export const getAllChap = async (req, res) => {
     try {
@@ -74,24 +90,6 @@ export const getAllChap = async (req, res) => {
         })
     }
 }
-
-export const getComicByCategory = async (req, res) => { 
-    const { cate } = req.query 
-
-    try {
-        const response = await services.getAllComicByCategoryLimitService(cate);
-        console.log("res pons  se", response);
-        return res.status(200).json(response);
-    } catch (error) {
-        console.error("Error in getComicByCategory:", error); // Log the error for debugging
-        return res.status(500).json({
-            err: -1,
-            msg: "Failed to get comics by category",
-            error: error.message // Send the error message in the response
-        });
-    }
-}
-
 
 export const getComicById = async (req, res) => {
     const { story_id } = req.query; 

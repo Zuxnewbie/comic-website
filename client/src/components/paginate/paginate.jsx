@@ -20,15 +20,15 @@ const PaginateComponent = ({ page }) => {
     
     let maxPage = Math.floor( count / stories.length);
     // console.log("maxpage =>", maxPage);
-    let end = currentPage + 1 > maxPage ? maxPage : currentPage + 1;
+    let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2);
     // console.log("end =>", end);
-    let start = currentPage - 1 <= 0 ? 1 : currentPage - 1;
+    let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2);
     // console.log("start =>", start);
     let temp = [];
     for (let i = start; i <= end; i++) temp.push(i);
     setArrPage(temp);
-    currentPage >= maxPage - 1 ? setIsHideEnd(true) : setIsHideEnd(false);
-    currentPage <= 2 ? setIsHideStart(true) : setIsHideStart(false);
+    currentPage >= maxPage - 2 ? setIsHideEnd(true) : setIsHideEnd(false);
+    currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false);
 
   }, [count, stories, currentPage]);
   // console.log("arr page", arrPage);

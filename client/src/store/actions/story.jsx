@@ -87,12 +87,14 @@ export const getStoriesLimit = (query) => async (dispatch) => {
 export const getStoryByGenre = (query) => async (dispatch) => {
   try {
     const response = await apiGetAllStoryByGenre(query);
-    console.log("response from action: ", response);
+    console.log("response from action getStoryByGenre: ", response);
 
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.GET_STORIES_BY_GENRE,
-        stories: response.data.response,
+        stories: response.data.response?.rows,
+        count: response.data.response?.count,
+
       });
     } else {
       dispatch({

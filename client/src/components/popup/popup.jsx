@@ -2,8 +2,6 @@ import "./popup.scss";
 import { useState, useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-// import { toast } from "react-toastify";
-// import {ToastComponent} from '../toast/toast'
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,25 +13,18 @@ import {
   validatePassword,
 } from "../../utils/validate"; // Adjust the import path as needed
 
-const PopupLoginComponent = ({
-  onClose,
-  display = "",
-  iniRegister = false,
-}) => {
+const PopupLoginComponent = ({ onClose, display = "", iniRegister = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [name, setName] = useState("");
   const [isRegister, setIsRegister] = useState(iniRegister);
-
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -41,17 +32,32 @@ const PopupLoginComponent = ({
   }, [iniRegister]);
 
   useEffect(() => {
-    isLoggedIn && navigate("/");
+    if (isLoggedIn) {
+      navigate("/");
+    }
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    msg &&
+    if (msg) {
       Swal.fire({
         title: "Oops !",
         text: msg,
         icon: "error",
       });
+    }
   }, [msg, update]);
+
+  useEffect(() => {
+    // Clear form fields when isRegister changes or popup closes
+    setEmail("");
+    setPassword("");
+    setEmailRegister("");
+    setPasswordRegister("");
+    setName("");
+    setNameError("");
+    setEmailError("");
+    setPasswordError("");
+  }, [isRegister, display]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -92,26 +98,23 @@ const PopupLoginComponent = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("toast =>>>", toast.success("hello"));
-
-    isRegister
-      ? dispatch(
-          actions.register({
-            name: name,
-            email: emailRegister,
-            password: passwordRegister,
-          })
-        )
-      : dispatch(
-          actions.login({
-            email: email,
-            password: password,
-          })
-        );
+    if (isRegister) {
+      dispatch(
+        actions.register({
+          name: name,
+          email: emailRegister,
+          password: passwordRegister,
+        })
+      );
+    } else {
+      dispatch(
+        actions.login({
+          email: email,
+          password: password,
+        })
+      );
+    }
   };
-  if (isLoggedIn) {
-    return null; // Popup will not render if logged in
-  }
 
   return (
     <>
@@ -162,6 +165,7 @@ const PopupLoginComponent = ({
                     <input
                       type="email"
                       maxLength="150"
+                      required
                       value={email}
                       onChange={handleEmailChange}
                     />
@@ -171,6 +175,7 @@ const PopupLoginComponent = ({
                     <p>Mật khẩu:</p>
                     <input
                       type="password"
+                      required
                       autoComplete="on"
                       value={password}
                       onChange={handlePasswordChange}

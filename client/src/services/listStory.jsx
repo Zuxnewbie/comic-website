@@ -42,11 +42,11 @@ export const apiGetAllStoryLimit = (page) =>
       });
   });
 
-export const apiGetAllStoryByGenre = (cate) =>
+export const apiGetAllStoryByGenre = (cate, page) =>
   new Promise((resolve, reject) => {
     axiosConfig({
       method: "get",
-      url: `/api/v1/genre/detail?cate=${cate}`,
+      url: `/api/v1/genre/detail/?cate=${cate}&page=${page}`,
     })
       .then((response) => {
         resolve(response);

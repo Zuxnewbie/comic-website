@@ -13,7 +13,7 @@ const MainContentComponent = ({ page, isNewPage, genre }) => {
     let offset = page ? +page - 1 : 0;
 
     if (genre) {
-      dispatch(getStoryByGenre(genre));
+      dispatch(getStoryByGenre(genre, offset));
     } else if (isNewPage) {
       dispatch(getStoriesLimit(offset));
     } else {

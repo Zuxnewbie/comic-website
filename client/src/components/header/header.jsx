@@ -8,13 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import * as actions from "../../store/actions";
 import TopSearchComponent from "../top-search/top-search";
-// import { apiGetGenres } from "../../services/category";
-// import { useNavigate } from "react-router-dom";
-// import validate from "../../utils/validate";
+
 const HeaderComponent = () => {
   const dispatch = useDispatch();
   const headerRef = useRef();
-  const { genres } = useSelector(state => state.genre)
+  const { genres } = useSelector((state) => state.genre);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [searchParams] = useSearchParams();
 
@@ -23,20 +21,10 @@ const HeaderComponent = () => {
   const [navChildTop, setNavChildTop] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-  // const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // const fetchCategories = async () => {
-    //   const response = await apiGetGenres();
-    //   // console.log("response from category", response);
-    //   if (response?.data.err === 0) {
-    //     setCategories(response.data.response);
-    //   }
-    // };
-    // fetchCategories();
-
-    dispatch(actions.getGenreDetails())
-  }, []);
+    dispatch(actions.getGenreDetails());
+  }, [dispatch]);
 
   useEffect(() => {
     headerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -67,22 +55,11 @@ const HeaderComponent = () => {
     setShowRegisterPopup(false);
   };
 
-  // const genre = [
-  //   { name: "Hài Hước", path: "hai-huoc" },
-  //   { name: "Huyền Huyễn", path: "huyen-huyen" },
-  //   { name: "Khoa Huyền", path: "khoa-huyen" },
-  //   { name: "Kiếm Hiệp", path: "kiem-hiep" },
-  //   { name: "Lịch Sử", path: "lich-su" },
-  //   { name: "Light Novel", path: "light-novel" },
-  //   { name: "Linh Di", path: "linh-di" },
-  //   { name: "Mạt Thế", path: "mat-the" },
-  //   { name: "Ngôn Tình", path: "ngon-tinh" },
-  //   { name: "Nữ Phụ", path: "nu-phu" },
-  // ];
-
-  // const handleValidate = () => {
-  //   validate.validateEmail(email);
-  // }
+  const handleLogout = () => {
+    dispatch(actions.logout());
+    setShowLoginPopup(false);
+    setShowRegisterPopup(false);
+  };
 
   return (
     <>
@@ -106,9 +83,7 @@ const HeaderComponent = () => {
                 </button>
               </div>
 
-                {/* top search */}
-                <TopSearchComponent />
-
+              <TopSearchComponent />
             </div>
             <div className="right">
               <div className="button-user">
@@ -126,9 +101,7 @@ const HeaderComponent = () => {
                   <>
                     <small>Name !</small>
                     <span>
-                      <button onClick={() => dispatch(actions.logout())}>
-                        Đăng Xuất
-                      </button>
+                      <button onClick={handleLogout}>Đăng Xuất</button>
                     </span>
                   </>
                 )}
@@ -144,10 +117,7 @@ const HeaderComponent = () => {
                   Trang Chủ
                 </Link>
               </li>
-              <span
-                className="middle_menu_fabars"
-                onClick={handleShowNavMobile}
-              >
+              <span className="middle_menu_fabars" onClick={handleShowNavMobile}>
                 <FaBars />
               </span>
               <li className="middle_menu_item">
@@ -163,21 +133,14 @@ const HeaderComponent = () => {
                             <p key={item.category_id}>
                               <Link
                                 title="Action"
-                                to={`genre/${item.name}`}
+                                to={`genre/${item.name}?page=1`}
                                 className={"asd"}
                               >
                                 {item.name}
-                                {/* {item.category_id} */}
                               </Link>
                             </p>
                           );
                         })}
-
-                      {/* <p>
-                        <a title="Adventure" href="/">
-                          Adventure
-                        </a>
-                      </p> */}
                     </div>
                   </div>
                 </div>
