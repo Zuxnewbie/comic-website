@@ -13,6 +13,7 @@ const HeaderComponent = () => {
   const dispatch = useDispatch();
   const headerRef = useRef();
   const { genres } = useSelector((state) => state.genre);
+  console.log("asdasdasd", genres);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [searchParams] = useSearchParams();
 
@@ -22,6 +23,7 @@ const HeaderComponent = () => {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
 
+  
   useEffect(() => {
     dispatch(actions.getGenreDetails());
   }, [dispatch]);
@@ -196,21 +198,17 @@ const HeaderComponent = () => {
                   Tìm Truyện
                 </a>
               </li>
-              <li className="middle_menu_item">
-                <a className="middle_menu_item_title" href="/">
-                  Lịch Sử
-                </a>
-              </li>
-              <li className="middle_menu_item">
+              {isLoggedIn && <> <li className="middle_menu_item">
                 <a className="middle_menu_item_title" href="/">
                   Theo Dõi
                 </a>
               </li>
               <li className="middle_menu_item">
                 <a className="middle_menu_item_title" href="/">
-                  Thảo Luận
+                  Lịch Sử
                 </a>
-              </li>
+              </li></>}
+              
               <li className="middle_menu_item">
                 <a className="middle_menu_item_title" href="/">
                   Fanpage

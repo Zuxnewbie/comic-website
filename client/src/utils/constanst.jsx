@@ -17,5 +17,10 @@ export const path = {
     NGON_TINH: 'ngon-tinh',
     NU_PHU: 'nu-phu',
 
+
+    SYSTEM: '/he-thong',
+    CREATE_POST: 'tao-moi-bai-dang',
+
+    UPLOAD_ASSETS_NAME: ''
 }
 

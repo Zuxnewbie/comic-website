@@ -1,4 +1,5 @@
 import axiosConfig from "../axiosConfig";
+import axios from "axios";
 
 export const apiGetAllStoryForSearch = () =>
   new Promise((resolve, reject) => {
@@ -96,4 +97,18 @@ export const apiGetChapterDetail = (chapterID) =>
       .catch((error) => {
         reject(error);
       });
+  });
+
+export const apiUploadImages = (image) =>
+  new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload/`,
+        data: image,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
   });

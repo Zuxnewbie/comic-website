@@ -1,6 +1,7 @@
 import db from "../models/index";
 import { Sequelize } from "sequelize";
 import QueryTypes from "sequelize";
+import axios from 'axios'
 
 export const getAllStoryService = () =>
   new Promise(async (resolve, reject) => {
@@ -698,3 +699,5 @@ export const getStoriesByAuthorIdService = (authorId) =>
       });
     }
   });
+
+
